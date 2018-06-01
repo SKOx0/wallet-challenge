@@ -1,6 +1,6 @@
 
 # http://www.appveyor.com/docs/appveyor-yml
-version: "1.0{build}"
+version: "1.0.{build}"
 
 skip_tags: true
 
@@ -9,11 +9,7 @@ environment:
   matrix:
     # Node versions to run
     - nodejs_version: 8
-    - nodejs_version: 7
     - nodejs_version: 6
-
-init:
-  - git config --global core.autocrlf input
 
 install:
   - choco install -y googlechrome --ignore-checksums
@@ -21,12 +17,15 @@ install:
   - set PATH=%APPDATA%\yarn;%PATH%
   - yarn
 
-build: off
+init:
+  - git config --global core.autocrlf input
 
 test_script:
   # run tests and run build
   - yarn run test
   - yarn run build
+
+build: off
 
 cache:
   - "%LOCALAPPDATA%\\Yarn"
