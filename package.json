@@ -15,7 +15,9 @@
     "reselect": "^3.0.1"
   },
   "scripts": {
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "build": "webpack --config config/webpack/prod.js",
+    "serve": "webpack-serve --config config/webpack/dev.js"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -46,6 +48,7 @@
     "style-loader": "^0.21.0",
     "url-loader": "^1.0.1",
     "webpack": "^4.10.2",
+    "webpack-cli": "^2.1.5",
     "webpack-hot-middleware": "^2.22.2",
     "webpack-serve": "^1.0.2"
   }
