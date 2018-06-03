@@ -8,8 +8,8 @@ const webPackBaseConfigurator = (opt) => ({
   target: 'web',
   devtool: opt.devtool,
   output: { path: path.resolve(process.cwd(), 'dist'), publicPath: '/', ...opt.output },
-  module:{
-    rules:[
+  module: {
+    rules: [
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,

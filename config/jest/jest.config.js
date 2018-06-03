@@ -7,8 +7,8 @@ module.exports = {
   coverageReporters: ['json', 'lcov', 'text', 'clover'],
   moduleDirectories: ['node_modules', 'src'],
   collectCoverageFrom: [
-    '!app/app.js',
-    'app/**/*.{js,jsx}',
-    '!app/**/*.test.{js,jsx}'
+    '!src/main.js',
+    'src/**/*.{js,jsx}',
+    '!src/**/*.test.{js,jsx}'
   ],
 };

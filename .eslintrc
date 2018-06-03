@@ -62,11 +62,8 @@
     "settings": {
       "import/resolver": {
         "webpack": {
-          "config": "./config/webpack.prod.babel.js"
+          "config": "./config/webpack/prod.js"
         }
       }
-    },
-    "globals": {
-      "ENV": true
     }
   }
