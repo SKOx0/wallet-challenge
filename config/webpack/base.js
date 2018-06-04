@@ -7,7 +7,7 @@ const webPackBaseConfigurator = (opt) => ({
   entry: opt.entry,
   target: 'web',
   devtool: opt.devtool,
-  output: { path: path.resolve(process.cwd(), 'dist'), publicPath: '/', ...opt.output },
+  output: Object.assign({ path: path.resolve(process.cwd(), 'dist'), publicPath: '/' }, opt.output),
   module: {
     rules: [
       {
