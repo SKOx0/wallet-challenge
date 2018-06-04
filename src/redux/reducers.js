@@ -10,18 +10,15 @@ const routeInitialState = {
 function routeReducer(state = routeInitialState, action) {
   switch (action.type) {
     case LOCATION_CHANGE:
-      return state.merge({
-        location: action.payload,
-      });
+      return { ...state, location: action.payload };
     default:
       return state;
   }
 }
 
-export default function createReducer(injectedReducers) {
+export default function createReducer() {
   return combineReducers({
     route: routeReducer,
     global: appReducer,
-    ...injectedReducers,
   });
 }

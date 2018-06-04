@@ -64,6 +64,7 @@ const webPackBaseConfigurator = (opt) => ({
       'jsnext:main'
     ]
   },
+  performance: opt.performance || {},
   optimization: {
     namedModules: true,
     splitChunks: {

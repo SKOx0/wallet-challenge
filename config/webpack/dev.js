@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpackBase = require('./base');
 
@@ -16,13 +17,17 @@ const webpackDev = webpackBase({
     new HtmlWebpackPlugin({
       inject: true,
       template: 'src/index.html'
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin()
   ],
   devtool: 'source-map',
   devServer: {
     historyApiFallback: true,
     contentBase: './',
     hot: true
+  },
+  performance: {
+    hints: false
   }
 });
 

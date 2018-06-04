@@ -1,5 +1,7 @@
+import 'babel-polyfill';
+
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM, { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
@@ -12,7 +14,7 @@ const history = createHistory();
 
 const store = configureStore({}, history);
 
-const render = () => {
+const renderApp = () => {
   ReactDOM.render(
     <Provider store={store}>
       <ConnectedRouter history={history}>
@@ -22,4 +24,10 @@ const render = () => {
     , root);
 };
 
-render();
+if (module.hot) {
+  module.hot.accept('./components/container/App', () => {
+    render(App.default);
+  });
+}
+
+renderApp();
