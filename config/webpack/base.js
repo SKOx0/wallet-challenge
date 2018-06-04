@@ -1,7 +1,7 @@
 
 const webpack = require('webpack');
 const path = require('path');
-//Módulo base responsável por relacionar configurações comuns entre dev e prod
+// Módulo base responsável por relacionar configurações comuns entre dev e prod
 const webPackBaseConfigurator = (opt) => ({
   mode: opt.mode,
   entry: opt.entry,
@@ -29,13 +29,13 @@ const webPackBaseConfigurator = (opt) => ({
         }],
       },
       {
-        //Responsável por compilar estilos de terceiro
+        // Responsável por compilar estilos de terceiro
         test: /\.(css|sass|scss)$/,
         include: /node_modules/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
-        //Responsável por carregar fonts
+        // Responsável por carregar fonts
         test: /\.(eot|svg|otf|ttf|woff|woff2)$/,
         use: 'file-loader',
       },
@@ -45,7 +45,13 @@ const webPackBaseConfigurator = (opt) => ({
       },
     ]
   },
-  plugins: [...opt.plugins],
+  plugins: [...opt.plugins, ...[
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+      }
+    })
+  ]],
   resolve: {
     modules: ['src', 'node_modules'],
     extensions: [

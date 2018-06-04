@@ -1,13 +1,14 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { Route } from 'react-router-dom';
 
-import App from '../App';
+import App from '..';
 
 describe('<App />', () => {
-  it('should render app container', () => {
+  it('should render app with route', () => {
     const appComponent = shallow(<App />);
 
-    var appDiv = appComponent.find('div').text();
-    expect(appDiv).toBe('Container app');
+    const appDiv = appComponent.find(Route);
+    expect(appDiv.length).not.toBe(0);
   });
 });
