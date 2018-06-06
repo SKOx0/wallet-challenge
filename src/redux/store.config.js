@@ -1,33 +1,34 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import { createLogicMiddleware } from 'redux-logic';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import createReducer from './reducers';
+import reducers from './reducers';
+import logics from '../sideEffects/logics';
 
 export default function configureStore(initialState = {}, history) {
-  const logicMiddleware = createLogicMiddleware([], {});
+  const logicMiddleware = createLogicMiddleware(logics, {});
 
-  const middlewares = [
-    logicMiddleware,
-    routerMiddleware(history)
-  ];
+  const middlewares = [logicMiddleware, routerMiddleware(history)];
+  const middlewareEnhancer = applyMiddleware(...middlewares);
 
-  const enhancers = [
-    applyMiddleware(...middlewares),
-  ];
+  const storeEnhancers = [middlewareEnhancer];
 
-  const composeEnhancers = process.env.NODE_ENV !== 'production' ? composeWithDevTools : compose;
+  const composedEnhancer = composeWithDevTools(...storeEnhancers);
 
   const store = createStore(
-    createReducer(),
-    { ...initialState },
-    composeEnhancers(...enhancers)
+    reducers,
+    initialState,
+    composedEnhancer
   );
 
-  if (module.hot) {
-    module.hot.accept('./reducers', () => {
-      store.replaceReducer(createReducer());
-    });
+  /* istanbul ignore next */
+  if (process.env.NODE_ENV !== 'production') {
+    if (module.hot) {
+      module.hot.accept('./reducers', () => {
+        const newRootReducer = reducers.default;
+        store.replaceReducer(newRootReducer);
+      });
+    }
   }
 
   return store;
