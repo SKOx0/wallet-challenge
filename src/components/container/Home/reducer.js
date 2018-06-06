@@ -1,12 +1,12 @@
 import { TESTE } from './constants';
 
-function appReducer(state = {}, action) {
+function homeReducer(state = {}, action) {
   switch (action.type) {
     case TESTE:
-      return state;
+      return { ...state };
     default:
       return state;
   }
 }
 
-export default appReducer;
+export default homeReducer;

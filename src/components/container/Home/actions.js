@@ -1,6 +1,6 @@
 import { TESTE } from './constants';
 
-export function DoTest() {
+export function doTest() {
   return {
     type: TESTE
   };

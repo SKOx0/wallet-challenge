@@ -1,13 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-
-import Home from '../';
+import Home from '../Home';
 
 describe('<Home />', () => {
   it('should render Home container', () => {
-    const appComponent = shallow(<Home />);
+    const homeComponent = shallow(<Home />);
 
-    const homeDiv = appComponent.find('div').text();
+    const homeDiv = homeComponent.find('div').text();
     expect(homeDiv).toBe('Hello, my name is home!');
   });
 });
