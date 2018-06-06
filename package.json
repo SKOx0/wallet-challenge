@@ -29,13 +29,15 @@
   },
   "scripts": {
     "test": "jest --coverage",
+    "test:watch": "jest --watch",
     "test:clean": "rimraf ./coverage",
     "build": "cross-env NODE_ENV=production webpack --config config/webpack/prod.js -p --progress --hide-modules",
     "client": "cross-env NODE_ENV=development webpack-serve --config config/webpack/dev.js --hot --display-error-details",
     "server": "nodemon server/index.js",
     "serve": "npm-run-all --parallel client server",
     "lint": "eslint --ignore-path .gitignore -- .",
-    "pretest": "yarn run test:clean && yarn run lint"
+    "pretest": "yarn run test:clean && yarn run lint",
+    "posttest": "codacy-coverage < ./coverage/lcov.info --token 0913d1f439d24fa8bd3bac43172eb20a"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -52,6 +54,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "codacy-coverage": "^3.0.0",
     "cross-env": "^5.1.6",
     "css-loader": "^0.28.11",
     "enzyme": "^3.3.0",
