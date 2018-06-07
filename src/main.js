@@ -5,6 +5,9 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
+import 'bulma/bulma.sass';
+import './styles/global.scss';
+
 import App from './components/container/App';
 import configureStore from './redux/store.config';
 
@@ -17,12 +20,9 @@ const store = configureStore({}, history);
 const render = () => {
   ReactDOM.render(
     <Provider store={store}>
-      <div>
-        <ConnectedRouter history={history}>
-          <App />
-        </ConnectedRouter>
-      </div>
-
+      <ConnectedRouter history={history}>
+        <App />
+      </ConnectedRouter>
     </Provider>,
     root
   );
