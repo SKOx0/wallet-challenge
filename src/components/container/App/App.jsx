@@ -2,12 +2,12 @@ import React from 'react';
 import { hot } from 'react-hot-loader';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 
-import Home from '../Home';
+import Auth from '../Auth';
 
 const App = () => (
   <HashRouter>
     <Switch>
-      <Route component={Home}></Route>
+      <Route component={Auth}></Route>
     </Switch>
   </HashRouter>
 );

@@ -2,6 +2,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import { createLogicMiddleware } from 'redux-logic';
 import { composeWithDevTools } from 'redux-devtools-extension';
+
 import reducers from './reducers';
 import logics from '../sideEffects/logics';
 

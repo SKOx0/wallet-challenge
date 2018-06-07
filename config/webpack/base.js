@@ -21,11 +21,7 @@ const webPackBaseConfigurator = (opt) => ({
         test: /\.scss$/,
         exclude: /node_modules/,
         use: ['style-loader', 'css-loader', {
-          loader: 'sass-loader',
-          options: {
-            data: '@import "src/styles/variables.scss";',
-            includePaths: [__dirname, 'src']
-          }
+          loader: 'sass-loader'
         }],
       },
       {
