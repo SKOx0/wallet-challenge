@@ -1,6 +1,6 @@
-# wallet challenge
+# Wallet Rock!
 
-Desafio Web App carteira virtual para vaga de front-end na Stone
+Desafio Web App carteira virtual
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0913d1f439d24fa8bd3bac43172eb20a)](https://app.codacy.com/app/skovhm/wallet-challenge?utm_source=github.com&utm_medium=referral&utm_content=SKOx0/wallet-challenge&utm_campaign=badger)
 
