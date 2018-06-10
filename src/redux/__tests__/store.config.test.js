@@ -8,7 +8,7 @@ describe('Configure Store module', () => {
     store = configureStore({}, browserHistory);
   });
 
-  it('should match snapshot', () => {
+  it('Deve ser igual ao snapshot', () => {
     expect(store).toMatchSnapshot();
   });
 });

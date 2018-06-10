@@ -1,19 +1,34 @@
 import React from 'react';
-import { Hero, HeroBody, Container, Column, Field, Columns, Control, Button, Help } from 'bloomer';
+import PropTypes from 'prop-types';
+import { Hero, HeroBody, Container, Column, Columns } from 'bloomer';
 import Background from 'components/common/Background';
-import Title from 'components/common/Title';
-import Form from 'components/common/Form';
-import Input from 'components/common/Input';
 import colors from 'styles/theme';
+import Title from 'components/common/Title';
+import NewAccount from './Forms/NewAccount';
+import Login from './Forms/Login';
 
-const inputAuthStyle = {
-  borderRadius: '3px',
-  borderWidth: '1px',
-  borderColor: '#717171'
-};
+class Auth extends React.Component {
+  constructor(props) {
+    super(props);
 
-export default class Auth extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+    this.state = {
+      isLoginForm: false
+    };
+
+    this.changeForm = this.changeForm.bind(this);
+  }
+
+  changeForm(formState) {
+    this.setState({ isLoginForm: formState });
+  }
+
   render() {
+    const { onSubmitForm } = this.props;
+
+    const currentForm = this.state.isLoginForm ?
+      (<Login onSubmitForm={onSubmitForm} changeForm={() => this.changeForm(false)}></Login>)
+      : (<NewAccount onSubmitForm={onSubmitForm} changeForm={() => this.changeForm(true)}></NewAccount>);
+
     return (
       <Background color={colors.background.base}>
         <Hero isFullHeight>
@@ -22,29 +37,7 @@ export default class Auth extends React.PureComponent { // eslint-disable-line r
               <Columns isVCentered>
                 <Column className="is-4 is-offset-4">
                   <Title color={colors.background.inverse} className="has-text-centered is-size-4 has-text-weight-bold mb-25">Bem-vindo ao Wallet Rock!</Title>
-                  <Form bgColor={colors.background.inverse} className="p-30">
-                    <Title color="black" className="has-text-centered is-size-5">Crie sua carteira</Title>
-
-                    <Field className="mt-30">
-                      <Control>
-                        <Input {...inputAuthStyle} type="text" placeholder="E-mail" />
-                      </Control>
-                    </Field>
-
-                    <Field>
-                      <Control>
-                        <Input {...inputAuthStyle} type="password" placeholder="Senha" />
-                      </Control>
-                    </Field>
-
-                    <Field>
-                      <Control>
-                        <Input {...inputAuthStyle} type="password" placeholder="Confirmar senha" />
-                      </Control>
-                    </Field>
-
-                    <Button isFullWidth isSize="large" type="submit" className="mt-50">Cadastrar</Button>
-                  </Form>
+                  {currentForm}
                 </Column>
               </Columns>
             </Container>
@@ -54,3 +47,9 @@ export default class Auth extends React.PureComponent { // eslint-disable-line r
     );
   }
 }
+
+export default Auth;
+
+Auth.propTypes = {
+  onSubmitForm: PropTypes.func
+};

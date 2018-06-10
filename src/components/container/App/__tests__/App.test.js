@@ -2,10 +2,10 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Route } from 'react-router-dom';
 
-import App from '..';
+import App from '../index';
 
 describe('<App />', () => {
-  it('should render app with route', () => {
+  it('Deve renderizar o container App com rota', () => {
     const appComponent = shallow(<App />);
 
     const appDiv = appComponent.find(Route);

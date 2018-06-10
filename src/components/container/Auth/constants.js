@@ -1,2 +1,4 @@
-export const TESTE = 'wallet/Auth/TESTE';
-export const CANCEL_TESTE = 'wallet/Auth/CANCEL_TESTE';
+export const AUTHENTICATE = 'wallet/Auth/AUTHENTICATE';
+export const AUTHENTICATE_FAILURE = 'wallet/Auth/AUTHENTICATE_FAILURE';
+export const AUTHENTICATE_SUCCESS = 'wallet/Auth/AUTHENTICATE_SUCCESS';
+export const CANCEL_AUTHENTICATE = 'wallet/Auth/CANCEL_AUTHENTICATE';

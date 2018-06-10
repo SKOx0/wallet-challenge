@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Configure Store module should match snapshot 1`] = `
+exports[`Configure Store module Deve ser igual ao snapshot 1`] = `
 Object {
   "dispatch": [Function],
   "getState": [Function],

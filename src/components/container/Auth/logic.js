@@ -1,9 +1,9 @@
 import { createLogic } from 'redux-logic';
-import { TESTE, CANCEL_TESTE } from './constants';
+import { AUTHENTICATE, CANCEL_AUTHENTICATE } from './constants';
 
 const authLogic = createLogic({
-  type: TESTE,
-  cancelType: CANCEL_TESTE,
+  type: AUTHENTICATE,
+  cancelType: CANCEL_AUTHENTICATE,
   latest: true
 });
 

@@ -1,10 +1,13 @@
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import Auth from './Auth';
-import { doTest } from './actions';
+import { authenticate } from './actions';
 
 const mapDispatchToProps = (dispatch) => ({
-  onTeste: () => dispatch(doTest()),
+  onSubmitForm: (evt) => {
+    if (evt !== undefined && evt.preventDefault) evt.preventDefault();
+    dispatch(authenticate(evt.target));
+  },
 });
 
 const mapStateToProps = createStructuredSelector({
