@@ -4,15 +4,11 @@ body {
   width: 100%;
 }
 
-body, button, input, select, textarea {
-  font-family: "Exo", sans-serif;
-}
-
-
 #root {
   min-height: 100%;
   min-width: 100%;
 }
 
-@import './util/spacing-helper.scss';
-@import './util/helpers.scss';
+@import './util/spacing-helper';
+@import './util/helpers';
+@import './bulma-config';

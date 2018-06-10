@@ -1,0 +1,16 @@
+@import "~bulma/sass/utilities/initial-variables";
+@import "~bulma/sass/utilities/functions";
+@import "~bulma/sass/utilities/derived-variables";
+
+$family-serif: "Exo", sans-serif;
+
+$family-primary: $family-serif;
+
+$stone2rd: #92c83e;
+$stone2rd-invert: findColorInvert($stone2rd);
+
+$addColors: ("stone":($stone2rd, $stone2rd-invert));
+
+$colors: map-merge($colors, $addColors);
+
+@import "~bulma"
