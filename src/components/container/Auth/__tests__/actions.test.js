@@ -1,6 +1,6 @@
 import { AUTHENTICATE, AUTHENTICATE_FAILURE, AUTHENTICATE_SUCCESS, NEW_ACCOUNT, NEW_ACCOUNT_SUCCESS } from '../constants';
 
-import { authenticate, authenticateError, authenticateSuccess } from '../actions';
+import { authenticate, authenticateError, authenticateSuccess, newAccount, newAccountSuccess } from '../actions';
 
 describe('Auth actions', () => {
   describe('Actions de autenticação', () => {
@@ -49,7 +49,7 @@ describe('Auth actions', () => {
         account
       };
 
-      expect(authenticate(account)).toEqual(expected);
+      expect(newAccount(account)).toEqual(expected);
     });
 
     it('Deve retornar o estado atual do cadastro', () => {
@@ -59,7 +59,7 @@ describe('Auth actions', () => {
         type: NEW_ACCOUNT_SUCCESS,
         accountCreated
       };
-      expect(authenticateSuccess(accountCreated)).toEqual(expected);
+      expect(newAccountSuccess(accountCreated)).toEqual(expected);
     });
   });
 });

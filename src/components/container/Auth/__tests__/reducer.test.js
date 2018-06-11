@@ -1,5 +1,5 @@
 import reducer from '../reducer';
-import { authenticate, authenticateError, authenticateSuccess, newAccount, newAccountError, newAccountSuccess } from '../actions';
+import { authenticate, authenticateError, authenticateSuccess, newAccount, newAccountSuccess } from '../actions';
 
 describe('Auth Reducer', () => {
   let state;
