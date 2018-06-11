@@ -2,13 +2,12 @@ import { createStore, applyMiddleware } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import { createLogicMiddleware } from 'redux-logic';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import apollo from 'helpers/apollo';
 
 import reducers from './reducers';
 import logics from '../sideEffects/logics';
 
 export default function configureStore(initialState = {}, history) {
-  const logicMiddleware = createLogicMiddleware(logics, { apollo });
+  const logicMiddleware = createLogicMiddleware(logics, { });
 
   const middlewares = [logicMiddleware, routerMiddleware(history)];
   const middlewareEnhancer = applyMiddleware(...middlewares);

@@ -3,6 +3,7 @@ import { actions } from 'react-redux-toastr';
 import localdb from 'helpers/localdb';
 import { getBasicToast } from 'helpers/toast';
 import gql from 'graphql-tag';
+import apollo from 'helpers/apollo';
 import { AUTHENTICATE, CANCEL_AUTHENTICATE, NEW_ACCOUNT, CANCEL_NEW_ACCOUNT } from './constants';
 import { newAccountSuccess } from './actions';
 
@@ -16,7 +17,7 @@ async function getUser(userEmail, predict) {
   return user;
 }
 
-async function getUserInformations(apollo, email) {
+async function getUserInformations(email) {
   return apollo.query({
     query: gql`
       query GetUserInformations{
@@ -59,7 +60,7 @@ const newAccountLogic = createLogic({
   type: NEW_ACCOUNT,
   cancelType: CANCEL_NEW_ACCOUNT,
   latest: true,
-  async process({ apollo, action }, dispatch, done) {
+  async process({ action }, dispatch, done) {
     try {
       let users = [];
 
@@ -72,7 +73,7 @@ const newAccountLogic = createLogic({
         done();
       }
 
-      const response = await getUserInformations(apollo, email);
+      const response = await getUserInformations(email);
 
       users = [...users, { ...response.data.userInitialInfo, email, senha }];
 

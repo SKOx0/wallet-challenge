@@ -1,6 +1,6 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
-import { HashRouter, Switch, Route } from 'react-router-dom';
+import { HashRouter, Switch } from 'react-router-dom';
 import PrivateRoute from 'components/common/PrivateRoute';
 
 import Auth from '../Auth';
