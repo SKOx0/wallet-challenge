@@ -1,7 +1,7 @@
 const graphql = require('graphql');
 
 const CoinPriceType = require('./types/CoinPriceType');
-const CoinHashType = require('./types/CoinHashType');
+const UserInitialInfoType = require('./types/UserInitialInfoType');
 
 const bitcoinResolver = require('./resolvers/bitcoin');
 const britaResolver = require('./resolvers/brita');
@@ -29,14 +29,17 @@ const CryptocurrencyQuery = new GraphQLObjectType({
         return britaResolver.getBritaPrice();
       }
     },
-    wallet: {
-      type: CoinHashType,
-      args: { coin: { type: GraphQLString }, email: { type: GraphQLString } },
+    userInitialInfo: {
+      type: UserInitialInfoType,
+      args: { email: { type: GraphQLString } },
 
       resolve(parent, args) {
-        const value = walletResolver.getCoinHash(args.coin, args.email);
-        const hash = { hash: value };
-        return hash;
+        const intialValues = { saldo: 100000.00 };
+
+        intialValues.bitcoinHash = walletResolver.getCoinHash('btc', args.email);
+        intialValues.britaHash = walletResolver.getCoinHash('bri', args.email);
+
+        return intialValues;
       }
     }
   }
