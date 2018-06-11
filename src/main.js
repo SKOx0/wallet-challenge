@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
+import ReduxToastr from 'react-redux-toastr';
 import './styles/global.scss';
 
 import App from './components/container/App';
@@ -19,9 +20,13 @@ const store = configureStore({}, history);
 const render = () => {
   ReactDOM.render(
     <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <App />
-      </ConnectedRouter>
+      <div>
+        <ConnectedRouter history={history}>
+          <App />
+        </ConnectedRouter>
+        <ReduxToastr />
+      </div>
+
     </Provider>,
     root
   );

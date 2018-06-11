@@ -1,13 +1,16 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
 import { HashRouter, Switch, Route } from 'react-router-dom';
+import PrivateRoute from 'components/common/PrivateRoute';
 
 import Auth from '../Auth';
+import Home from '../Home';
 
 const App = () => (
   <HashRouter>
     <Switch>
-      <Route component={Auth}></Route>
+      <PrivateRoute path="/auth" component={Auth} />
+      <PrivateRoute exact path="/" component={Home} />
     </Switch>
   </HashRouter>
 );

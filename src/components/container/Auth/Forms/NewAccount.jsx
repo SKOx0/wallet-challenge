@@ -1,5 +1,5 @@
 import React from 'react';
-import { Field, Control, Button } from 'bloomer';
+import { Field, Control, Button, Help } from 'bloomer';
 import { reduxForm } from 'redux-form';
 import Form from 'components/common/Form';
 import InputValidation from 'components/common/InputValidation';
@@ -47,7 +47,7 @@ const NewAccount = (props) => {
         </label>
       </Field>
 
-      <Button disabled={submitting} isFullWidth isSize="large" type="submit" className="mt-50 is-stone">Cadastrar</Button>
+      <Button disabled={submitting} isLoading={submitting} isFullWidth isSize="large" type="submit" className="mt-50 is-stone">Cadastrar</Button>
     </Form>
   );
 };

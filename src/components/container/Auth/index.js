@@ -1,17 +1,23 @@
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { makeSelectAccountCreated } from './selectors';
 import Auth from './Auth';
-import { authenticate } from './actions';
+import { authenticate, newAccount, newAccountSuccess } from './actions';
 
 const mapDispatchToProps = (dispatch) => ({
-  onSubmitForm: (evt) => {
-    if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-    dispatch(authenticate(evt.target));
+  onCreateAccountSubmit: (form) => {
+    if (form !== undefined) { dispatch(newAccount(form)); }
   },
+  onLoginSubmit: (form) => {
+    if (form !== undefined) { dispatch(authenticate(form)); }
+  },
+  resetNewAccountForm: (created) => {
+    dispatch(newAccountSuccess(created));
+  }
 });
 
 const mapStateToProps = createStructuredSelector({
-
+  accountCreated: makeSelectAccountCreated()
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);

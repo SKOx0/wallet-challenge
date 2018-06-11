@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import homeReducer from 'components/container/Home/reducer';
 import authReducer from 'components/container/Auth/reducer';
 import { reducer as formReducer } from 'redux-form';
+import { reducer as toastrReducer } from 'react-redux-toastr';
 
 import routeReducer from './location';
 
@@ -11,5 +12,6 @@ export default combineReducers({
   route: routeReducer,
   home: homeReducer,
   auth: authReducer,
-  form: formReducer
+  form: formReducer,
+  toastr: toastrReducer
 });

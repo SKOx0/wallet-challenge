@@ -18,16 +18,31 @@ class Auth extends React.Component {
     this.changeForm = this.changeForm.bind(this);
   }
 
+  static getDerivedStateFromProps(nextProps) {
+    return {
+      accountCreated: nextProps.accountCreated
+    };
+  }
+
+  componentDidUpdate() {
+    const { resetNewAccountForm } = this.props;
+
+    if (this.state.accountCreated) {
+      this.changeForm(true);
+      resetNewAccountForm(false);
+    }
+  }
+
   changeForm(formState) {
     this.setState({ isLoginForm: formState });
   }
 
   render() {
-    const { onSubmitForm } = this.props;
+    const { onCreateAccountSubmit, onLoginSubmit } = this.props;
 
     const currentForm = this.state.isLoginForm ?
-      (<Login onSubmitForm={onSubmitForm} changeForm={() => this.changeForm(false)}></Login>)
-      : (<NewAccount onSubmitForm={onSubmitForm} changeForm={() => this.changeForm(true)}></NewAccount>);
+      (<Login onSubmitForm={onLoginSubmit} changeForm={() => this.changeForm(false)} ></Login>)
+      : (<NewAccount onSubmitForm={onCreateAccountSubmit} changeForm={() => this.changeForm(true)}></NewAccount>);
 
     return (
       <Background color={colors.background.base}>
@@ -51,5 +66,7 @@ class Auth extends React.Component {
 export default Auth;
 
 Auth.propTypes = {
-  onSubmitForm: PropTypes.func
+  onLoginSubmit: PropTypes.func,
+  onCreateAccountSubmit: PropTypes.func,
+  resetNewAccountForm: PropTypes.func
 };
