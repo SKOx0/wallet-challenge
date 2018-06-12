@@ -4,6 +4,7 @@ import { Hero, HeroBody, Container, Column, Columns } from 'bloomer';
 import Background from 'components/common/Background';
 import colors from 'styles/theme';
 import Title from 'components/common/Title';
+import { Redirect } from 'react-router-dom';
 import NewAccount from './Forms/NewAccount';
 import Login from './Forms/Login';
 
@@ -20,7 +21,8 @@ class Auth extends React.Component {
 
   static getDerivedStateFromProps(nextProps) {
     return {
-      accountCreated: nextProps.accountCreated
+      accountCreated: nextProps.accountCreated,
+      isAuthenticated: nextProps.isAuthenticated
     };
   }
 
@@ -38,6 +40,10 @@ class Auth extends React.Component {
   }
 
   render() {
+    if (this.state.isAuthenticated) {
+      return (<Redirect to={{ pathname: '/' }} />);
+    }
+
     const { onCreateAccountSubmit, onLoginSubmit } = this.props;
 
     const currentForm = this.state.isLoginForm ?

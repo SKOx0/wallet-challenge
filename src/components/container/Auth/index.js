@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { makeSelectAccountCreated } from './selectors';
+import { makeSelectAccountCreated, makeSelectIsAuthenticated } from './selectors';
 import Auth from './Auth';
 import { authenticate, newAccount, newAccountSuccess } from './actions';
 
@@ -17,7 +17,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = createStructuredSelector({
-  accountCreated: makeSelectAccountCreated()
+  accountCreated: makeSelectAccountCreated(),
+  isAuthenticated: makeSelectIsAuthenticated()
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);

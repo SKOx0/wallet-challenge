@@ -1,5 +1,5 @@
 import reducer from '../reducer';
-import { authenticate, authenticateError, authenticateSuccess, newAccount, newAccountSuccess } from '../actions';
+import { authenticate, authenticateSuccess, newAccount, newAccountSuccess } from '../actions';
 
 describe('Auth Reducer', () => {
   let state;
@@ -17,13 +17,6 @@ describe('Auth Reducer', () => {
     const expectedResult = { ...state, user };
 
     expect(reducer(state, authenticate(user))).toEqual(expectedResult);
-  });
-
-  it('Deve tratar a action authenticateError de forma correta', () => {
-    const error = 'Login failed';
-    const expectedResult = { ...state, error };
-
-    expect(reducer(state, authenticateError(error))).toEqual(expectedResult);
   });
 
   it('Deve tratar a action authenticateSuccess de forma correta', () => {

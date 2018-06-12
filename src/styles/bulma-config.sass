@@ -6,10 +6,13 @@ $family-serif: "Exo", sans-serif;
 
 $family-primary: $family-serif;
 
-$stone2rd: #92c83e;
-$stone2rd-invert: findColorInvert($stone2rd);
+$stone: #92c83e;
+$stone-invert: findColorInvert($stone);
 
-$addColors: ("stone":($stone2rd, $stone2rd-invert));
+$stone2: #359967;
+$stone2-invert: findColorInvert($stone2);
+
+$addColors: ("stone":($stone, $stone-invert), "stone2":($stone2, $stone2-invert));
 
 $colors: map-merge($colors, $addColors);
 

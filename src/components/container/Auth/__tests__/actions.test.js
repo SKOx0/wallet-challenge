@@ -1,6 +1,6 @@
-import { AUTHENTICATE, AUTHENTICATE_FAILURE, AUTHENTICATE_SUCCESS, NEW_ACCOUNT, NEW_ACCOUNT_SUCCESS } from '../constants';
+import { AUTHENTICATE, AUTHENTICATE_SUCCESS, NEW_ACCOUNT, NEW_ACCOUNT_SUCCESS } from '../constants';
 
-import { authenticate, authenticateError, authenticateSuccess, newAccount, newAccountSuccess } from '../actions';
+import { authenticate, authenticateSuccess, newAccount, newAccountSuccess } from '../actions';
 
 describe('Auth actions', () => {
   describe('Actions de autenticação', () => {
@@ -15,15 +15,6 @@ describe('Auth actions', () => {
       };
 
       expect(authenticate(user)).toEqual(expected);
-    });
-
-    it('Deve retornar as informações de erro quando a autenticação falhar', () => {
-      const error = 'Falha ao autenticar!';
-      const expected = {
-        type: AUTHENTICATE_FAILURE,
-        error
-      };
-      expect(authenticateError(error)).toEqual(expected);
     });
 
     it('Deve retornar o estado atual da autenticação', () => {

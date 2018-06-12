@@ -1,16 +1,9 @@
-import { AUTHENTICATE, AUTHENTICATE_FAILURE, AUTHENTICATE_SUCCESS, NEW_ACCOUNT, NEW_ACCOUNT_SUCCESS } from './constants';
+import { AUTHENTICATE, AUTHENTICATE_SUCCESS, NEW_ACCOUNT, NEW_ACCOUNT_SUCCESS } from './constants';
 
 export function authenticate(user) {
   return {
     type: AUTHENTICATE,
     user
-  };
-}
-
-export function authenticateError(error) {
-  return {
-    type: AUTHENTICATE_FAILURE,
-    error
   };
 }
 

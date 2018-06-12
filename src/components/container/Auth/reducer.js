@@ -1,11 +1,9 @@
-import { AUTHENTICATE, AUTHENTICATE_FAILURE, AUTHENTICATE_SUCCESS, NEW_ACCOUNT, NEW_ACCOUNT_SUCCESS } from './constants';
+import { AUTHENTICATE, AUTHENTICATE_SUCCESS, NEW_ACCOUNT, NEW_ACCOUNT_SUCCESS } from './constants';
 
 function authReducer(state = {}, action) {
   switch (action.type) {
     case AUTHENTICATE:
       return { ...state, user: action.user };
-    case AUTHENTICATE_FAILURE:
-      return { ...state, error: action.error };
     case AUTHENTICATE_SUCCESS:
       return { ...state, isAuthenticated: action.isAuthenticated };
     case NEW_ACCOUNT:

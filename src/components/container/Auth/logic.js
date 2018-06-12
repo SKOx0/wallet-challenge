@@ -1,14 +1,13 @@
 import { createLogic } from 'redux-logic';
 import { actions } from 'react-redux-toastr';
-import localdb from 'helpers/localdb';
 import { getBasicToast } from 'helpers/toast';
 import gql from 'graphql-tag';
 import apollo from 'helpers/apollo';
 import { AUTHENTICATE, CANCEL_AUTHENTICATE, NEW_ACCOUNT, CANCEL_NEW_ACCOUNT } from './constants';
-import { newAccountSuccess } from './actions';
+import { newAccountSuccess, authenticateSuccess } from './actions';
 
-async function getUser(userEmail, predict) {
-  const users = await localdb.getItem('users');
+function getUser(userEmail, predict) {
+  const users = JSON.parse(localStorage.getItem('users'));
 
   if (!users) return null;
 
@@ -35,18 +34,20 @@ const authLogic = createLogic({
   type: AUTHENTICATE,
   cancelType: CANCEL_AUTHENTICATE,
   latest: true,
-  async process({ action }, dispatch, done) {
+  process({ action }, dispatch, done) {
     try {
       const { email, senha } = action.user;
 
-      const userFound = await getUser(email, (user) => user.email === email && user.senha === senha);
+      const userFound = getUser(email, (user) => user.email === email && user.senha === senha);
 
       if (!userFound) {
         dispatch(actions.add(getBasicToast('error', 'Carteira não encontrada!')));
         done();
       }
 
-      localdb.setItem('authToken', btoa(`${userFound.email}:${userFound.saldo}`));
+      localStorage.setItem('authToken', btoa(`${userFound.email}:${userFound.saldo}`));
+
+      dispatch(authenticateSuccess(true));
 
       done();
     } catch (ex) {
@@ -62,11 +63,11 @@ const newAccountLogic = createLogic({
   latest: true,
   async process({ action }, dispatch, done) {
     try {
-      let users = [];
+      let users = JSON.parse(localStorage.getItem('users')) || [];
 
       const { email, senha } = action.account;
 
-      const userFound = await getUser(email, (user) => user.email === email);
+      const userFound = getUser(email, (user) => user.email === email);
 
       if (userFound) {
         dispatch(actions.add(getBasicToast('error', 'Usuário já cadastrado!')));
@@ -77,7 +78,7 @@ const newAccountLogic = createLogic({
 
       users = [...users, { ...response.data.userInitialInfo, email, senha }];
 
-      localdb.setItem('users', users);
+      localStorage.setItem('users', JSON.stringify(users));
 
       dispatch(actions.add(getBasicToast('success', 'Usuário cadastrado com sucesso!')));
 

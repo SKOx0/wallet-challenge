@@ -6,13 +6,16 @@ import PrivateRoute from 'components/common/PrivateRoute';
 import Auth from '../Auth';
 import Home from '../Home';
 
-const App = () => (
-  <HashRouter>
-    <Switch>
-      <PrivateRoute path="/auth" component={Auth} />
-      <PrivateRoute exact path="/" component={Home} />
-    </Switch>
-  </HashRouter>
-);
+
+const App = () =>
+  (
+    <HashRouter>
+      <Switch>
+        <PrivateRoute path="/auth" component={Auth} />
+        <PrivateRoute exact path="/" component={Home} />
+      </Switch>
+    </HashRouter>
+  );
+
 
 export default hot(module)(App);

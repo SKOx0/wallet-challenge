@@ -7,7 +7,14 @@ const makeSelectAccountCreated = () => createSelector(
   (authState) => authState.accountCreated
 );
 
+const makeSelectIsAuthenticated = () => createSelector(
+  selectAuth,
+  (authState) => authState.isAuthenticated
+);
+
+
 export {
   selectAuth,
   makeSelectAccountCreated,
+  makeSelectIsAuthenticated
 };
