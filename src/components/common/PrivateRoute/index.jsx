@@ -9,7 +9,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
       const token = localStorage.getItem('authToken');
 
       if (token && props.location.pathname === '/auth') {
-        return <Redirect to={{ pathname: '/' }} />;
+        return <Redirect to={{ pathname: '/home' }} />;
       } else if (!token && props.location.pathname !== '/auth') {
         return (
           <Redirect to={{ pathname: '/auth', state: { from: props.location } }} />

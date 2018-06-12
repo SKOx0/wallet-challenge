@@ -12,6 +12,9 @@ $stone-invert: findColorInvert($stone);
 $stone2: #359967;
 $stone2-invert: findColorInvert($stone2);
 
+$link-invert: $stone-invert;
+$link: $stone;
+
 $addColors: ("stone":($stone, $stone-invert), "stone2":($stone2, $stone2-invert));
 
 $colors: map-merge($colors, $addColors);
