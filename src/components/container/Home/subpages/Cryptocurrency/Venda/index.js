@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import Home from './Home';
+import Venda from './Venda';
 
 const mapDispatchToProps = () => ({
 
@@ -10,5 +10,5 @@ const mapStateToProps = createStructuredSelector({
 
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Venda);
 export { mapDispatchToProps };

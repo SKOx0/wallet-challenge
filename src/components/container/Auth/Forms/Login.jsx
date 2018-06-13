@@ -25,13 +25,13 @@ const Login = (props) => {
 
       <Field className="mt-30">
         <Control>
-          <InputValidation {...inputAuthStyle} name="email" type="text" label="E-mail" />
+          <InputValidation name="email" type="text" label="E-mail" />
         </Control>
       </Field>
 
       <Field>
         <Control>
-          <InputValidation {...inputAuthStyle} name="senha" type="password" label="Senha" />
+          <InputValidation name="senha" type="password" label="Senha" />
         </Control>
       </Field>
       <Field>

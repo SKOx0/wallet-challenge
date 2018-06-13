@@ -1,0 +1,11 @@
+.tabs {
+  li {
+      display: block;
+      a {
+          &.is-active {
+              border-bottom-color: $link;
+              color: $link;
+          }
+      }
+  }
+}

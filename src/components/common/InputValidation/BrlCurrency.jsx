@@ -2,18 +2,18 @@ import React from 'react';
 import { Field } from 'redux-form';
 import { Help } from 'bloomer';
 import PropTypes from 'prop-types';
-import Input from '../Input';
+import BrlCurrencyInput from '../Input/BrlCurrency';
 
 const validationField = ({
-  input, label, type, meta: { touched, error }, readOnly
+  input, label, type, meta: { touched, error }, readOnly, onChangeCurrency
 }) => (
   <div>
-    <Input {...input} type={type} placeholder={label} readOnly={readOnly} />
+    <BrlCurrencyInput {...input} type={type} placeholder={label} readOnly={readOnly} onChange={onChangeCurrency} />
     {touched && error && <Help isColor="danger">{error}</Help>}
   </div>
 );
 
-const InputValidation = (props) => (<Field component={validationField} {...props} />);
+const InputValidation = ({ ...rest }) => (<Field component={validationField} {...rest} />);
 
 export default InputValidation;
 
@@ -22,5 +22,6 @@ validationField.propTypes = {
   label: PropTypes.string,
   type: PropTypes.string,
   meta: PropTypes.object,
-  readOnly: PropTypes.bool
+  readOnly: PropTypes.bool,
+  onChangeCurrency: PropTypes.func
 };

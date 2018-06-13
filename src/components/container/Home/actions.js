@@ -1,7 +1,15 @@
-import { TESTE } from './constants';
+import { CONVERT_CURRENCY_VALUE, GET_CONVERTED_CRYPTOCURRENCY_TO_BRL } from './constants';
 
-export function doTest() {
+export function convertCurrencyValue(currencies) {
   return {
-    type: TESTE
+    type: CONVERT_CURRENCY_VALUE,
+    currencies
+  };
+}
+
+export function getConvertedCryptocurrencyToBrl(convertedValue) {
+  return {
+    type: GET_CONVERTED_CRYPTOCURRENCY_TO_BRL,
+    convertedValue
   };
 }

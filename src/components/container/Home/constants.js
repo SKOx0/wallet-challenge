@@ -1,2 +1,3 @@
-export const TESTE = 'wallet/Home/TESTE';
-export const CANCEL_TESTE = 'wallet/Home/CANCEL_TESTE';
+export const CONVERT_CURRENCY_VALUE = 'wallet/Home/Currency/CONVERT_CURRENCY_VALUE';
+export const GET_CONVERTED_CRYPTOCURRENCY_TO_BRL = 'wallet/Home/Currency/GET_CONVERTED_CRYPTOCURRENCY_TO_BRL';
+

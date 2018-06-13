@@ -1,5 +1,5 @@
 import React from 'react';
-import { Field, Control, Button, Help } from 'bloomer';
+import { Field, Control, Button } from 'bloomer';
 import { reduxForm } from 'redux-form';
 import Form from 'components/common/Form';
 import InputValidation from 'components/common/InputValidation';
@@ -7,12 +7,6 @@ import PropTypes from 'prop-types';
 import colors from 'styles/theme';
 import Title from 'components/common/Title';
 import validate from './NewAccount.validate';
-
-const inputAuthStyle = {
-  borderRadius: '3px',
-  borderWidth: '1px',
-  borderColor: '#D2D2D2'
-};
 
 const NewAccount = (props) => {
   const {
@@ -25,19 +19,19 @@ const NewAccount = (props) => {
 
       <Field className="mt-30">
         <Control>
-          <InputValidation {...inputAuthStyle} name="email" type="text" label="E-mail" />
+          <InputValidation name="email" type="text" label="E-mail" />
         </Control>
       </Field>
 
       <Field>
         <Control>
-          <InputValidation {...inputAuthStyle} name="senha" type="password" label="Senha" />
+          <InputValidation name="senha" type="password" label="Senha" />
         </Control>
       </Field>
 
       <Field>
         <Control>
-          <InputValidation {...inputAuthStyle} name="confirmacaosenha" type="password" label="Confirmar senha" />
+          <InputValidation name="confirmacaosenha" type="password" label="Confirmar senha" />
         </Control>
       </Field>
 

@@ -3,7 +3,7 @@ import { Menu, MenuLabel, MenuList } from 'bloomer';
 import { NavLink } from 'react-router-dom';
 
 const MenuComponent = () => (
-  <Menu >
+  <Menu>
     <MenuList>
       <li><NavLink exact to="/home" activeClassName="is-active">Inicio</NavLink></li>
     </MenuList>
