@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { Navbar, Container, NavbarBrand, NavbarItem, NavbarMenu, NavbarEnd } from 'bloomer';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import * as Icons from '@fortawesome/fontawesome-free-solid';
@@ -8,7 +9,7 @@ const Header = () => (
     <Container>
       <NavbarBrand>
         <NavbarItem>
-          Wallet Rock
+          <NavLink to="/"> Wallet Rock </NavLink>
         </NavbarItem>
         <NavbarItem href="#" isHidden="desktop">
           <FontAwesomeIcon icon={Icons.faSignOutAlt} className="mr-5"></FontAwesomeIcon>
