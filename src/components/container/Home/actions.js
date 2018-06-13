@@ -13,3 +13,10 @@ export function getConvertedCryptocurrencyToBrl(convertedValue) {
     convertedValue
   };
 }
+
+export function exchangeBrlToCryptocurrency(exchangeInformations) {
+  return {
+    type: exchangeBrlToCryptocurrency,
+    exchangeInformations
+  };
+}

@@ -13,6 +13,7 @@ class Comprar extends React.PureComponent {
 
 
     this.state = {
+      brlValue: 0,
       convertedValue: 0
     };
 
@@ -21,7 +22,7 @@ class Comprar extends React.PureComponent {
 
   static getDerivedStateFromProps(nextProps) {
     return {
-      convertedValue: nextProps.convertedValue ? nextProps.convertedValue : null
+      convertedValue: nextProps.convertedValue ? nextProps.convertedValue : 0
     };
   }
 
@@ -29,6 +30,8 @@ class Comprar extends React.PureComponent {
     event.preventDefault();
 
     const { convertCurrencyValue, moeda } = this.props;
+
+    this.setState({ brlValue: value });
 
     convertCurrencyValue({ valor: value, moeda });
   }
@@ -41,7 +44,7 @@ class Comprar extends React.PureComponent {
           <Field>
             <Label>Valor em reais</Label>
             <Control>
-              <BrlCurrencyInputValidation name="valor" label="0" onChangeCurrency={this.handleChange} />
+              <BrlCurrencyInputValidation name="valor" label="0" value={this.state.brlValue} onChangeCurrency={this.handleChange} />
             </Control>
           </Field>
 
