@@ -12,6 +12,9 @@ const webpackProd = webpackBase({
     filename: '[name].[chunkhash].js',
     chunkFilename: '[name].[chunkhash].chunk.js'
   },
+  performance: {
+    assetFilter: (assetFilename) => !(/(\.map$)|(^(main\.|favicon\.))/.test(assetFilename)),
+  },
 
   plugins: [
     new HtmlWebpackPlugin({

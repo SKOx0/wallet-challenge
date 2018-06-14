@@ -14,39 +14,39 @@ const Amount = styled('div')`
   align-items: center;
 `;
 
-const Cryptocurrency = ({ match, name }) => (
+const Cryptocurrency = (props) => (
   <Content>
     <Tabs>
       <TabList>
         <Tab>
-          <NavLink to={`${match.path}/`} exact activeClassName="is-active">
+          <NavLink to={`${props.match.path}/`} exact activeClassName="is-active">
             <span>Comprar</span>
           </NavLink>
         </Tab>
         <Tab>
-          <NavLink to={`${match.path}/vender`} activeClassName="is-active">
+          <NavLink to={`${props.match.path}/vender`} activeClassName="is-active">
             <span>Vender</span>
           </NavLink>
         </Tab>
         <Tab>
-          <NavLink to={`${match.path}/trocar`} activeClassName="is-active">
+          <NavLink to={`${props.match.path}/trocar`} activeClassName="is-active">
             <span>Trocar</span>
           </NavLink>
         </Tab>
         <Tab>
-          <NavLink to={`${match.path}/transacoes`} activeClassName="is-active">
+          <NavLink to={`${props.match.path}/transacoes`} activeClassName="is-active">
             <span>Transações</span>
           </NavLink>
         </Tab>
       </TabList>
-      <Amount>Carteira {name}: 200</Amount>
+      <Amount>Carteira {props.name}: 200</Amount>
     </Tabs>
     <Switch>
-      <PrivateRoute path={`${match.path}/`} exact render={() => <Comprar moeda={name} />} />
-      <PrivateRoute path={`${match.path}/vender`} exact render={() => <Venda moeda={name} />} />
-      <PrivateRoute path={`${match.path}/trocar`} render={() => <Troca moeda={name} />} />
-      <PrivateRoute path={`${match.path}/transacoes`} render={() => <Transacoes moeda={name} />} />
-      <Redirect to={`${match.url}`} />
+      <PrivateRoute path={`${props.match.path}/`} exact render={() => <Comprar moeda={props.name} />} />
+      <PrivateRoute path={`${props.match.path}/vender`} exact render={() => <Venda moeda={props.name} />} />
+      <PrivateRoute path={`${props.match.path}/trocar`} render={() => <Troca moeda={props.name} />} />
+      <PrivateRoute path={`${props.match.path}/transacoes`} render={() => <Transacoes moeda={props.name} />} />
+      <Redirect to={`${props.match.url}`} />
     </Switch>
   </Content>
 );

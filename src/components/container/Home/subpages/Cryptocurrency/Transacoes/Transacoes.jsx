@@ -1,7 +1,7 @@
 import React from 'react';
 import { Content } from 'bloomer';
 
-const Transacoes = (props) => (
+const Transacoes = () => (
   <Content>
   Transacões
   </Content>
