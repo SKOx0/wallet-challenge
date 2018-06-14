@@ -48,7 +48,9 @@ class Comprar extends React.Component {
       dispatch, brlValue, cryptoCurrencyValue, moeda
     } = this.props;
 
-    dispatch(exchargeCryptocurrency({ brlValue, cryptoCurrencyValue, moeda }));
+    dispatch(exchargeCryptocurrency({
+      exchangeCurrencyValue: brlValue, cryptoCurrencyValue, moeda, moedaTroca: 'real'
+    }));
 
     this.render();
   }

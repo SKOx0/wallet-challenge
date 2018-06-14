@@ -60,22 +60,29 @@ const exchargeCryptocurrencyLogic = createLogic({
   type: EXCHANGE_CRYPTOCURRECY,
   latest: true,
   debounce: 1000,
+  validate({ action }, allow, reject) {
+    const { exchangeCurrencyValue, cryptoCurrencyValue } = action.exchangeInformations;
+
+    if (exchangeCurrencyValue && cryptoCurrencyValue) {
+      allow(action);
+    } else {
+      reject(actions.add(getBasicToast('error', 'Falha ao tentar converter moedas')));
+    }
+  },
   async process({ action }, dispatch, done) {
     try {
       const users = JSON.parse(localStorage.getItem('users'));
       const email = atob(localStorage.getItem('authToken'));
-
-      const real = normalizeValue(action.exchangeInformations.brlValue) / 100;
-      const { cryptoCurrencyValue, moeda } = action.exchangeInformations;
-
       const userFound = getUser(email, (user) => user.email === email);
+      const exchangeCurrencyValue = normalizeValue(action.exchangeInformations.exchangeCurrencyValue) / 100;
+      const { cryptoCurrencyValue, moeda, moedaTroca } = action.exchangeInformations;
 
-      const { saldo } = userFound.moedas.real;
-      const saldoCurrency = userFound.moedas[moeda].saldo;
+      const { saldo } = userFound.moedas[moedaTroca];
+      const saldoMoeda = userFound.moedas[moeda].saldo;
 
-      if (saldo >= real) {
-        userFound.moedas.real = { ...{ saldo: saldo - real } };
-        userFound.moedas[moeda] = { ...{ saldo: round(saldoCurrency + cryptoCurrencyValue, 5) } };
+      if (saldo >= exchangeCurrencyValue) {
+        userFound.moedas = { ...{ saldo: saldo - exchangeCurrencyValue } };
+        userFound.moedas[moeda] = { ...{ saldo: round(saldoMoeda + cryptoCurrencyValue, 5) } };
       } else {
         dispatch(actions.add(getBasicToast('warning', 'Saldo insuficiênte!')));
         done();
@@ -89,7 +96,7 @@ const exchargeCryptocurrencyLogic = createLogic({
 
       done();
     } catch (error) {
-      dispatch(actions.add(getBasicToast('error', 'Falha ao listar moedas disponíveis!')));
+      dispatch(actions.add(getBasicToast('error', 'Falha ao trocar moedas!')));
       done();
     }
   }
