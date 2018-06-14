@@ -6,7 +6,7 @@ const {
 } = require('../../../helpers/decimal');
 
 function getUrl(dataInicial, dataFinal) {
-  return `${env.bitraApi}?@moeda='USD'&@dataInicial='${dateformat(dataInicial, 'dd-mm-yyyy')}'&@dataFinalCotacao='${dateformat(dataFinal, 'dd-mm-yyyy')}'&$format=json&$orderby=dataHoraCotacao desc&$top=1`;
+  return `${env.bitraApi}?@moeda='USD'&@dataInicial='${dateformat(dataInicial, 'mm-dd-yyyy')}'&@dataFinalCotacao='${dateformat(dataFinal, 'mm-dd-yyyy')}'&$format=json&$orderby=dataHoraCotacao desc&$top=1`;
 }
 
 const requestBrita = async (dataInicial, dataFinal) => {
@@ -33,25 +33,12 @@ const requestBrita = async (dataInicial, dataFinal) => {
 };
 
 const getBritaPrice = async () => {
-  let dataFinal = new Date();
-  let dataInicial = new Date().setDate(dataFinal.getDate() - 1);
+  const dataFinal = new Date();
+  const dataInicial = new Date().setDate(dataFinal.getDate() - 1);
 
-  try {
-    const model = await requestBrita(dataInicial, dataFinal);
+  const model = await requestBrita(dataInicial, dataFinal);
 
-    return model;
-  } catch (ex) {
-    // Em caso de falha para obter as taxas de hoje, faz uma consulta com o primeiro dia do mês
-    const today = new Date();
-
-    dataFinal = dataFinal.setDate(today.getDate() - 1);
-
-    dataInicial = new Date(today.getFullYear(), today.getMonth(), 1);
-
-    const model = await requestBrita(dataInicial, dataFinal);
-
-    return model;
-  }
+  return model;
 };
 
 

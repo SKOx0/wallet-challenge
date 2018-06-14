@@ -34,7 +34,19 @@ const CryptocurrencyQuery = new GraphQLObjectType({
       args: { email: { type: GraphQLString } },
 
       resolve(parent, args) {
-        const intialValues = { saldo: 100000.00 };
+        const intialValues = {
+          moedas: {
+            real: {
+              saldo: 100000.00
+            },
+            bitcoin: {
+              saldo: 0
+            },
+            brita: {
+              saldo: 0
+            }
+          }
+        };
 
         intialValues.bitcoinHash = walletResolver.getCoinHash('btc', args.email);
         intialValues.britaHash = walletResolver.getCoinHash('bri', args.email);

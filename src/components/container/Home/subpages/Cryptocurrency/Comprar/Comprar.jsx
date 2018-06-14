@@ -1,29 +1,36 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
 import { Content, Field, Control, Label, Button } from 'bloomer';
-import Input from 'components/common/Input';
+import InputValidation from 'components/common/InputValidation';
 import BrlCurrencyInputValidation from 'components/common/InputValidation/BrlCurrency';
 import Form from 'components/common/Form';
-import PropTypes from 'prop-types';
+import { func, string, object, number } from 'prop-types';
+import { listAvailibleCurrencies, exchargeCryptocurrency } from '../../../actions';
 
+const formName = 'Comprar';
 
-class Comprar extends React.PureComponent {
+class Comprar extends React.Component {
   constructor(props) {
     super(props);
 
-
-    this.state = {
-      brlValue: 0,
-      convertedValue: 0
-    };
-
     this.handleChange = this.handleChange.bind(this);
+    this.exchange = this.exchange.bind(this);
   }
 
-  static getDerivedStateFromProps(nextProps) {
-    return {
-      convertedValue: nextProps.convertedValue ? nextProps.convertedValue : 0
-    };
+  componentDidMount() {
+    const { dispatch, moeda } = this.props;
+
+    dispatch(listAvailibleCurrencies(moeda));
+  }
+
+  componentDidUpdate(prevProps) {
+    const { moeda, convertCurrencyValue, currencies } = this.props;
+
+    if (prevProps.moeda !== this.props.moeda) {
+      this.props.reset();
+
+      if (currencies) { convertCurrencyValue({ valor: currencies.valor, moeda, form: { name: formName, targetField: 'quantidademoeda' } }); }
+    }
   }
 
   handleChange(event, value) {
@@ -31,9 +38,19 @@ class Comprar extends React.PureComponent {
 
     const { convertCurrencyValue, moeda } = this.props;
 
-    this.setState({ brlValue: value });
+    convertCurrencyValue({ valor: value, moeda, form: { name: formName, targetField: 'quantidademoeda' } });
+  }
 
-    convertCurrencyValue({ valor: value, moeda });
+  exchange(event) {
+    event.preventDefault();
+
+    const {
+      dispatch, brlValue, cryptoCurrencyValue, moeda
+    } = this.props;
+
+    dispatch(exchargeCryptocurrency({ brlValue, cryptoCurrencyValue, moeda }));
+
+    this.render();
   }
 
   render() {
@@ -44,18 +61,18 @@ class Comprar extends React.PureComponent {
           <Field>
             <Label>Valor em reais</Label>
             <Control>
-              <BrlCurrencyInputValidation name="valor" label="0" value={this.state.brlValue} onChangeCurrency={this.handleChange} />
+              <BrlCurrencyInputValidation name="valor" label="0" onChangeCurrency={this.handleChange} />
             </Control>
           </Field>
 
           <Field>
             <Label>Quantidade de {moeda}</Label>
             <Control>
-              <Input name="quantidademoeda" type="text" placeholder="0" readOnly value={this.state.convertedValue} />
+              <InputValidation name="quantidademoeda" type="text" label="0" readOnly />
             </Control>
           </Field>
 
-          <Button isFullWidth className="is-stone">Comprar</Button>
+          <Button onClick={this.exchange} isFullWidth className="is-stone">Comprar</Button>
         </Form>
       </Content>
     );
@@ -63,10 +80,15 @@ class Comprar extends React.PureComponent {
 }
 
 export default reduxForm({
-  form: 'Comprar'
+  form: formName,
 })(Comprar);
 
 Comprar.propTypes = {
-  moeda: PropTypes.string.isRequired,
-  convertCurrencyValue: PropTypes.func
+  moeda: string.isRequired,
+  convertCurrencyValue: func,
+  dispatch: func,
+  reset: func,
+  currencies: object,
+  brlValue: string,
+  cryptoCurrencyValue: number
 };

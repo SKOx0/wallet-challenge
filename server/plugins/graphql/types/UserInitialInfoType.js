@@ -1,15 +1,17 @@
 const graphql = require('graphql');
 
 const {
-  GraphQLObjectType, GraphQLString, GraphQLFloat, GraphQLNonNull
+  GraphQLObjectType, GraphQLString, GraphQLNonNull
 } = graphql;
+
+const MoedaType = require('./MoedaType');
 
 const UserInitialInfoType = new GraphQLObjectType({
   name: 'UserInitialInfoType',
   fields: () => ({
     bitcoinHash: { type: new GraphQLNonNull(GraphQLString) },
     britaHash: { type: new GraphQLNonNull(GraphQLString) },
-    saldo: { type: new GraphQLNonNull(GraphQLFloat) }
+    moedas: { type: MoedaType }
   })
 });
 

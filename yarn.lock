@@ -7670,9 +7670,9 @@ react-hot-loader@^4.2.0:
     react-lifecycles-compat "^3.0.4"
     shallowequal "^1.0.2"
 
-"react-intl-currency-input@https://github.com/SKOx0/react-intl-currency-input.git":
+"react-intl-currency-input@https://github.com/SKOx0/react-intl-currency-input.git#0.1.21":
   version "0.1.9"
-  resolved "https://github.com/SKOx0/react-intl-currency-input.git#9e298e47226e9f8384a426d5605caa59c4528aea"
+  resolved "https://github.com/SKOx0/react-intl-currency-input.git#fa869c665c1ef0db31ced569c069aa3932691a79"
   dependencies:
     compression "^1.7.2"
 

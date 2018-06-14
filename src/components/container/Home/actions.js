@@ -1,4 +1,4 @@
-import { CONVERT_CURRENCY_VALUE, GET_CONVERTED_CRYPTOCURRENCY_TO_BRL } from './constants';
+import { CONVERT_CURRENCY_VALUE, GET_CONVERTED_CRYPTOCURRENCY_TO_BRL, LIST_AVAILIBLE_CURRENCIES, AVAILIBLE_CURRENCIES, EXCHANGE_CRYPTOCURRECY } from './constants';
 
 export function convertCurrencyValue(currencies) {
   return {
@@ -14,9 +14,24 @@ export function getConvertedCryptocurrencyToBrl(convertedValue) {
   };
 }
 
-export function exchangeBrlToCryptocurrency(exchangeInformations) {
+export function listAvailibleCurrencies(currentCurrency) {
   return {
-    type: exchangeBrlToCryptocurrency,
+    type: LIST_AVAILIBLE_CURRENCIES,
+    currentCurrency
+  };
+}
+
+
+export function availibleCurrencies(currencyList) {
+  return {
+    type: AVAILIBLE_CURRENCIES,
+    currencyList
+  };
+}
+
+export function exchargeCryptocurrency(exchangeInformations) {
+  return {
+    type: EXCHANGE_CRYPTOCURRECY,
     exchangeInformations
   };
 }

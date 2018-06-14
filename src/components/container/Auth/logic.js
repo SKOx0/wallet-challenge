@@ -1,34 +1,9 @@
 import { createLogic } from 'redux-logic';
 import { actions } from 'react-redux-toastr';
 import { getBasicToast } from 'helpers/toast';
-import gql from 'graphql-tag';
-import apollo from 'helpers/apollo';
+import { getUser, getUserInformations } from 'helpers/query';
 import { AUTHENTICATE, CANCEL_AUTHENTICATE, NEW_ACCOUNT, CANCEL_NEW_ACCOUNT } from './constants';
 import { newAccountSuccess, authenticateSuccess } from './actions';
-
-function getUser(userEmail, predict) {
-  const users = JSON.parse(localStorage.getItem('users'));
-
-  if (!users) return null;
-
-  const user = users.find(predict);
-
-  return user;
-}
-
-async function getUserInformations(email) {
-  return apollo.query({
-    query: gql`
-      query GetUserInformations{
-        userInitialInfo(email: "${email}"){
-          britaHash,
-          bitcoinHash,
-          saldo
-        }
-      }
-    `,
-  });
-}
 
 const authLogic = createLogic({
   type: AUTHENTICATE,
@@ -45,7 +20,7 @@ const authLogic = createLogic({
         done();
       }
 
-      localStorage.setItem('authToken', btoa(`${userFound.email}:${userFound.saldo}`));
+      localStorage.setItem('authToken', btoa(`${userFound.email}`));
 
       dispatch(authenticateSuccess(true));
 

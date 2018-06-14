@@ -13,9 +13,9 @@ const validationField = ({
   </div>
 );
 
-const InputValidation = ({ ...rest }) => (<Field component={validationField} {...rest} />);
+const BrlCurrency = ({ ...rest }) => (<Field component={validationField} {...rest} />);
 
-export default InputValidation;
+export default BrlCurrency;
 
 validationField.propTypes = {
   input: PropTypes.object,
