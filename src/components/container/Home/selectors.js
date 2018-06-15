@@ -12,8 +12,14 @@ const makeSelectConvertInformations = () => createSelector(
   (homeState) => homeState.convertInformations
 );
 
+const makeSelectBalance = () => createSelector(
+  selectHome,
+  (homeState) => homeState.balance
+);
+
 export {
   selectHome,
   makeSelectConvertedValue,
-  makeSelectConvertInformations
+  makeSelectConvertInformations,
+  makeSelectBalance
 };

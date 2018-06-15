@@ -5,8 +5,8 @@ import { actions } from 'react-redux-toastr';
 import { getBasicToast } from 'helpers/toast';
 import { obterValorMoeda, getUser } from 'helpers/query';
 import { normalizeValue } from 'helpers/currency';
-import { CONVERT_CURRENCY_VALUE, LIST_AVAILIBLE_CURRENCIES, EXCHANGE_CRYPTOCURRECY } from './constants';
-import { availibleCurrencies } from './actions';
+import { CONVERT_CURRENCY_VALUE, LIST_AVAILIBLE_CURRENCIES, EXCHANGE_CRYPTOCURRECY, GET_BALANCE } from './constants';
+import { availibleCurrencies, getBalance, currentBalance } from './actions';
 
 const genericErrorMessage = 'Falha ao converter valores';
 
@@ -93,6 +93,7 @@ const exchargeCryptocurrencyLogic = createLogic({
       localStorage.setItem('users', JSON.stringify([...keepUsers, userFound]));
 
       dispatch(actions.add(getBasicToast('success', 'Compra realizada com sucesso!')));
+      dispatch(getBalance());
 
       done();
     } catch (error) {
@@ -102,5 +103,21 @@ const exchargeCryptocurrencyLogic = createLogic({
   }
 });
 
+const getBalanceLogic = createLogic({
+  type: GET_BALANCE,
+  latest: true,
+  async process(obj, dispatch, done) {
+    try {
+      const email = atob(localStorage.getItem('authToken'));
+      const userFound = getUser(email, (user) => user.email === email);
 
-export default [convertCurrencyLogic, listAvailicleCurrenciesLogic, exchargeCryptocurrencyLogic];
+      dispatch(currentBalance(userFound.moedas));
+    } catch (error) {
+      dispatch(actions.add(getBasicToast('error', 'Falha ao obter saldos!')));
+      done();
+    }
+  }
+});
+
+
+export default [convertCurrencyLogic, listAvailicleCurrenciesLogic, exchargeCryptocurrencyLogic, getBalanceLogic];

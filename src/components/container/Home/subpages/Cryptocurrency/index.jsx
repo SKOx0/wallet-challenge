@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink, withRouter, Redirect, Switch } from 'react-router-dom';
 import PrivateRoute from 'components/common/PrivateRoute';
 import { Content, Tabs, TabList, Tab } from 'bloomer';
-import PropTypes from 'prop-types';
+import { object, string } from 'prop-types';
 import styled from 'react-emotion';
 import Venda from './Venda';
 import Comprar from './Comprar';
@@ -12,6 +12,7 @@ import Transacoes from './Transacoes';
 const Amount = styled('div')`
   display: flex;
   align-items: center;
+  margin-right: 20px;
 `;
 
 const Cryptocurrency = (props) => (
@@ -39,7 +40,8 @@ const Cryptocurrency = (props) => (
           </NavLink>
         </Tab>
       </TabList>
-      <Amount>Carteira {props.name}: 200</Amount>
+      <Amount>Total em reais: {props.balance.real.saldo}</Amount>
+      <Amount>Total em {props.name}: {props.balance[props.name].saldo}</Amount>
     </Tabs>
     <Switch>
       <PrivateRoute path={`${props.match.path}/`} exact render={() => <Comprar moeda={props.name} />} />
@@ -54,6 +56,7 @@ const Cryptocurrency = (props) => (
 export default withRouter(Cryptocurrency);
 
 Cryptocurrency.propTypes = {
-  match: PropTypes.object.isRequired,
-  name: PropTypes.string.isRequired
+  match: object.isRequired,
+  name: string.isRequired,
+  balance: object
 };
