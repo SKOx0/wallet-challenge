@@ -112,6 +112,8 @@ const getBalanceLogic = createLogic({
       const userFound = getUser(email, (user) => user.email === email);
 
       dispatch(currentBalance(userFound.moedas));
+
+      done();
     } catch (error) {
       dispatch(actions.add(getBasicToast('error', 'Falha ao obter saldos!')));
       done();

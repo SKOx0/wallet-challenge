@@ -2,7 +2,7 @@ import React from 'react';
 import { reduxForm } from 'redux-form';
 import { Content, Field, Control, Label, Button } from 'bloomer';
 import InputValidation from 'components/common/InputValidation';
-import BrlCurrencyInputValidation from 'components/common/InputValidation/BrlCurrency';
+import CurrencyInputValidation from 'components/common/InputValidation/Currency';
 import Form from 'components/common/Form';
 import { func, string, object, number } from 'prop-types';
 import { listAvailibleCurrencies, exchargeCryptocurrency } from '../../../actions';
@@ -63,7 +63,25 @@ class Comprar extends React.Component {
           <Field>
             <Label>Valor em reais</Label>
             <Control>
-              <BrlCurrencyInputValidation name="valor" label="0" onChangeCurrency={this.handleChange} />
+              <CurrencyInputValidation
+                name="valor"
+                label="0"
+                onChangeCurrency={this.handleChange}
+                currency="BRL"
+                currencyConfig={{
+                  locale: 'pt-BR',
+                  formats: {
+                    number: {
+                      BRL: {
+                        style: 'currency',
+                        currency: 'BRL',
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      },
+                    },
+                  }
+                }}
+              />
             </Control>
           </Field>
 

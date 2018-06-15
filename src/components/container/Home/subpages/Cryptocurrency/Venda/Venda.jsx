@@ -2,7 +2,7 @@ import React from 'react';
 import { reduxForm } from 'redux-form';
 import { Content, Field, Control, Label, Notification, Delete, Button } from 'bloomer';
 import InputValidation from 'components/common/InputValidation';
-import BrlCurrencyInputValidation from 'components/common/InputValidation/BrlCurrency';
+import CurrencyInputValidation from 'components/common/InputValidation/Currency';
 import Form from 'components/common/Form';
 import PropTypes from 'prop-types';
 
@@ -16,21 +16,64 @@ const Venda = ({ moeda }) => (
       <Field>
         <Label>Quantidade de {moeda}</Label>
         <Control>
-          <InputValidation name="valor" type="text" label="0" />
+          <CurrencyInputValidation
+            name="valor"
+            type="text"
+            label="0"
+            currency="USD"
+          />
         </Control>
       </Field>
 
       <Field>
         <Label>Valor convertido em reais</Label>
         <Control>
-          <BrlCurrencyInputValidation name="valorreais" type="text" label="0" readOnly />
+          <CurrencyInputValidation
+            name="valorreais"
+            type="text"
+            label="0"
+            readOnly
+            currency="BRL"
+            currencyConfig={{
+              locale: 'pt-BR',
+              formats: {
+                number: {
+                  BRL: {
+                    style: 'currency',
+                    currency: 'BRL',
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  },
+                },
+              }
+            }}
+          />
         </Control>
       </Field>
 
       <Field>
         <Label>Valor final</Label>
         <Control>
-          <BrlCurrencyInputValidation name="valorfinal" type="text" label="0" readOnly />
+          <CurrencyInputValidation
+            name="valorfinal"
+            type="text"
+            label="0"
+            readOnly
+            currency="BRL"
+            currencyConfig={{
+              locale: 'pt-BR',
+              formats: {
+                number: {
+                  BRL: {
+                    style: 'currency',
+                    currency: 'BRL',
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  },
+                },
+              }
+            }}
+          />
         </Control>
       </Field>
 
