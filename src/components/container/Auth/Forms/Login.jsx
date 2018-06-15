@@ -8,12 +8,6 @@ import colors from 'styles/theme';
 import Title from 'components/common/Title';
 import validate from './Login.validate';
 
-const inputAuthStyle = {
-  borderRadius: '3px',
-  borderWidth: '1px',
-  borderColor: '#D2D2D2'
-};
-
 const Login = (props) => {
   const {
     handleSubmit, submitting, onSubmitForm, changeForm

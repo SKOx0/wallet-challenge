@@ -7,13 +7,13 @@ const makeSelectConvertedValue = () => createSelector(
   (homeState) => homeState.convertedValue
 );
 
-const makeSelectCurrencies = () => createSelector(
+const makeSelectConvertInformations = () => createSelector(
   selectHome,
-  (homeState) => homeState.currencies
+  (homeState) => homeState.convertInformations
 );
 
 export {
   selectHome,
   makeSelectConvertedValue,
-  makeSelectCurrencies
+  makeSelectConvertInformations
 };

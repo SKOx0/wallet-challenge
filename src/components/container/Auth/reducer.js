@@ -1,18 +1,24 @@
-import { AUTHENTICATE, AUTHENTICATE_SUCCESS, NEW_ACCOUNT, NEW_ACCOUNT_SUCCESS } from './constants';
+import { handleActions } from 'redux-actions';
+import { authenticate, authenticateSuccess, newAccount, newAccountSuccess } from './actions';
 
-function authReducer(state = {}, action) {
-  switch (action.type) {
-    case AUTHENTICATE:
-      return { ...state, user: action.user };
-    case AUTHENTICATE_SUCCESS:
-      return { ...state, isAuthenticated: action.isAuthenticated };
-    case NEW_ACCOUNT:
-      return { ...state, account: action.account };
-    case NEW_ACCOUNT_SUCCESS:
-      return { ...state, accountCreated: action.accountCreated };
-    default:
-      return state;
-  }
-}
+const authReducer = handleActions({
+  [authenticate]: (state, action) => ({
+    ...state,
+    user: action.payload
+  }),
+  [newAccount]: (state, action) => ({
+    ...state,
+    account: action.payload
+  }),
+  [authenticateSuccess]: (state, action) => ({
+    ...state,
+    isAuthenticated: action.payload
+  }),
+  [newAccountSuccess]: (state, action) => ({
+    ...state,
+    accountCreated: action.payload
+  })
+}, {});
 
 export default authReducer;
+

@@ -1,29 +1,10 @@
+import { createAction } from 'redux-actions';
 import { AUTHENTICATE, AUTHENTICATE_SUCCESS, NEW_ACCOUNT, NEW_ACCOUNT_SUCCESS } from './constants';
 
-export function authenticate(user) {
-  return {
-    type: AUTHENTICATE,
-    user
-  };
-}
+export const authenticate = createAction(AUTHENTICATE);
 
-export function authenticateSuccess(isAuthenticated) {
-  return {
-    type: AUTHENTICATE_SUCCESS,
-    isAuthenticated
-  };
-}
+export const authenticateSuccess = createAction(AUTHENTICATE_SUCCESS);
 
-export function newAccount(account) {
-  return {
-    type: NEW_ACCOUNT,
-    account
-  };
-}
+export const newAccount = createAction(NEW_ACCOUNT);
 
-export function newAccountSuccess(accountCreated) {
-  return {
-    type: NEW_ACCOUNT_SUCCESS,
-    accountCreated
-  };
-}
+export const newAccountSuccess = createAction(NEW_ACCOUNT_SUCCESS);

@@ -1,37 +1,10 @@
-import { CONVERT_CURRENCY_VALUE, GET_CONVERTED_CRYPTOCURRENCY_TO_BRL, LIST_AVAILIBLE_CURRENCIES, AVAILIBLE_CURRENCIES, EXCHANGE_CRYPTOCURRECY } from './constants';
+import { createAction } from 'redux-actions';
+import { CONVERT_CURRENCY_VALUE, LIST_AVAILIBLE_CURRENCIES, AVAILIBLE_CURRENCIES, EXCHANGE_CRYPTOCURRECY } from './constants';
 
-export function convertCurrencyValue(currencies) {
-  return {
-    type: CONVERT_CURRENCY_VALUE,
-    currencies
-  };
-}
+export const convertCurrencyValue = createAction(CONVERT_CURRENCY_VALUE);
 
-export function getConvertedCryptocurrencyToBrl(convertedValue) {
-  return {
-    type: GET_CONVERTED_CRYPTOCURRENCY_TO_BRL,
-    convertedValue
-  };
-}
+export const listAvailibleCurrencies = createAction(LIST_AVAILIBLE_CURRENCIES);
 
-export function listAvailibleCurrencies(currentCurrency) {
-  return {
-    type: LIST_AVAILIBLE_CURRENCIES,
-    currentCurrency
-  };
-}
+export const availibleCurrencies = createAction(AVAILIBLE_CURRENCIES);
 
-
-export function availibleCurrencies(currencyList) {
-  return {
-    type: AVAILIBLE_CURRENCIES,
-    currencyList
-  };
-}
-
-export function exchargeCryptocurrency(exchangeInformations) {
-  return {
-    type: EXCHANGE_CRYPTOCURRECY,
-    exchangeInformations
-  };
-}
+export const exchargeCryptocurrency = createAction(EXCHANGE_CRYPTOCURRECY);

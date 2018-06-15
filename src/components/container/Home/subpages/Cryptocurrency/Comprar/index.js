@@ -3,7 +3,7 @@ import { formValueSelector } from 'redux-form';
 import { createStructuredSelector } from 'reselect';
 import Comprar from './Comprar';
 import { convertCurrencyValue } from '../../../actions';
-import { makeSelectConvertedValue, makeSelectCurrencies } from '../../../selectors';
+import { makeSelectConvertedValue, makeSelectConvertInformations } from '../../../selectors';
 
 const mapDispatchToProps = (dispatch) => ({
   convertCurrencyValue: (currency) => {
@@ -15,7 +15,7 @@ const mapDispatchToProps = (dispatch) => ({
 const selector = formValueSelector('Comprar');
 const mapStateToProps = createStructuredSelector({
   convertedValue: makeSelectConvertedValue(),
-  currencies: makeSelectCurrencies(),
+  convertInformations: makeSelectConvertInformations(),
   brlValue: (state) => selector(state, 'valor'),
   cryptoCurrencyValue: (state) => selector(state, 'quantidademoeda')
 });

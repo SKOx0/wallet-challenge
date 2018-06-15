@@ -11,7 +11,7 @@ const authLogic = createLogic({
   latest: true,
   process({ action }, dispatch, done) {
     try {
-      const { email, senha } = action.user;
+      const { email, senha } = action.payload;
 
       const userFound = getUser(email, (user) => user.email === email && user.senha === senha);
 
@@ -40,7 +40,7 @@ const newAccountLogic = createLogic({
     try {
       let users = JSON.parse(localStorage.getItem('users')) || [];
 
-      const { email, senha } = action.account;
+      const { email, senha } = action.payload;
 
       const userFound = getUser(email, (user) => user.email === email);
 

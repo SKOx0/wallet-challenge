@@ -24,12 +24,12 @@ class Comprar extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { moeda, convertCurrencyValue, currencies } = this.props;
+    const { moeda, convertCurrencyValue, convertInformations } = this.props;
 
     if (prevProps.moeda !== this.props.moeda) {
       this.props.reset();
 
-      if (currencies) { convertCurrencyValue({ valor: currencies.valor, moeda, form: { name: formName, targetField: 'quantidademoeda' } }); }
+      if (convertInformations) { convertCurrencyValue({ valor: convertInformations.valor, moeda, form: { name: formName, targetField: 'quantidademoeda' } }); }
     }
   }
 
@@ -90,7 +90,7 @@ Comprar.propTypes = {
   convertCurrencyValue: func,
   dispatch: func,
   reset: func,
-  currencies: object,
+  convertInformations: object,
   brlValue: string,
   cryptoCurrencyValue: number
 };

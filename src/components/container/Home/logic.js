@@ -16,7 +16,7 @@ const convertCurrencyLogic = createLogic({
   latest: true,
   async process({ action }, dispatch, done) {
     try {
-      const { moeda, valor, form } = action.currencies;
+      const { moeda, valor, form } = action.payload;
       const response = await obterValorMoeda(moeda);
 
       const { buy } = response.data[moeda];
@@ -44,7 +44,7 @@ const listAvailicleCurrenciesLogic = createLogic({
     try {
       let allCurrenciesMock = ['bitcoin', 'brita', 'real'];
 
-      allCurrenciesMock = allCurrenciesMock.filter((value) => value !== action.currentCurrency);
+      allCurrenciesMock = allCurrenciesMock.filter((value) => value !== action.payload);
 
       dispatch(availibleCurrencies(allCurrenciesMock));
 
@@ -61,7 +61,7 @@ const exchargeCryptocurrencyLogic = createLogic({
   latest: true,
   debounce: 1000,
   validate({ action }, allow, reject) {
-    const { exchangeCurrencyValue, cryptoCurrencyValue } = action.exchangeInformations;
+    const { exchangeCurrencyValue, cryptoCurrencyValue } = action.payload;
 
     if (exchangeCurrencyValue && cryptoCurrencyValue) {
       allow(action);
@@ -74,14 +74,14 @@ const exchargeCryptocurrencyLogic = createLogic({
       const users = JSON.parse(localStorage.getItem('users'));
       const email = atob(localStorage.getItem('authToken'));
       const userFound = getUser(email, (user) => user.email === email);
-      const exchangeCurrencyValue = normalizeValue(action.exchangeInformations.exchangeCurrencyValue) / 100;
-      const { cryptoCurrencyValue, moeda, moedaTroca } = action.exchangeInformations;
+      const exchangeCurrencyValue = normalizeValue(action.payload.exchangeCurrencyValue) / 100;
+      const { cryptoCurrencyValue, moeda, moedaTroca } = action.payload;
 
       const { saldo } = userFound.moedas[moedaTroca];
       const saldoMoeda = userFound.moedas[moeda].saldo;
 
       if (saldo >= exchangeCurrencyValue) {
-        userFound.moedas = { ...{ saldo: saldo - exchangeCurrencyValue } };
+        userFound.moedas[moedaTroca] = { ...{ saldo: saldo - exchangeCurrencyValue } };
         userFound.moedas[moeda] = { ...{ saldo: round(saldoMoeda + cryptoCurrencyValue, 5) } };
       } else {
         dispatch(actions.add(getBasicToast('warning', 'Saldo insuficiênte!')));
