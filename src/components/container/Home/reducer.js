@@ -6,7 +6,8 @@ import {
   convertBrlToCryptocurrency,
   convertCryptocurrencyToCryptocurrency,
   convertCryptocurrencyToBrl,
-  currentBalance
+  currentBalance,
+  transactions
 } from './actions';
 
 const defaultState = {
@@ -51,6 +52,10 @@ const homeReducer = handleActions({
   [currentBalance]: (state, action) => ({
     ...state,
     balance: action.payload
+  }),
+  [transactions]: (state, action) => ({
+    ...state,
+    transactions: action.payload
   })
 }, defaultState);
 

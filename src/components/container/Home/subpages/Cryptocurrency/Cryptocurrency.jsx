@@ -8,7 +8,6 @@ import styled from 'react-emotion';
 import Venda from './Venda';
 import Comprar from './Comprar';
 import Troca from './Troca';
-import Transacoes from './Transacoes';
 import { listAvailibleCurrencies } from '../../actions';
 
 const Amount = styled('div')`
@@ -55,11 +54,6 @@ class Cryptocurrency extends React.PureComponent {
                 <span>Trocar</span>
               </NavLink>
             </Tab>
-            <Tab>
-              <NavLink to={`${match.path}/transacoes`} activeClassName="is-active">
-                <span>Transações</span>
-              </NavLink>
-            </Tab>
           </TabList>
           <Amount>Total em reais: {balance.real.saldo}</Amount>
           <Amount>Total em {name}: {balance[name].saldo}</Amount>
@@ -68,7 +62,6 @@ class Cryptocurrency extends React.PureComponent {
           <PrivateRoute path={`${match.path}/`} exact render={() => <Comprar moeda={name} />} />
           <PrivateRoute path={`${match.path}/vender`} exact render={() => <Venda moeda={name} />} />
           <PrivateRoute path={`${match.path}/trocar`} render={() => <Troca moeda={name} currencyList={currencyList} />} />
-          <PrivateRoute path={`${match.path}/transacoes`} render={() => <Transacoes moeda={name} />} />
           <Redirect to={`${match.url}`} />
         </Switch>
       </Content>

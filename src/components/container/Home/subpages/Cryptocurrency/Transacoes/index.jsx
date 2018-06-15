@@ -1,8 +1,9 @@
 import React from 'react';
 import { Content, Table } from 'bloomer';
+import { array } from 'prop-types';
 
 // TODO paginação
-const Transacoes = () => (
+const Transacoes = (props) => (
   <Content>
     <Table >
       <thead>
@@ -16,18 +17,18 @@ const Transacoes = () => (
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>15/06/2018</td>
-          <td>Venda</td>
-        </tr>
-        <tr>
-          <td>15/06/2018</td>
-          <td>Troca</td>
-        </tr>
-        <tr>
-          <td>15/06/2018</td>
-          <td>Compra</td>
-        </tr>
+        {
+          props.transactions.map((key, idx) => (
+            <tr key={`${idx}`}>
+              <td>{key.data}</td>
+              <td>{key.tipoTransacao}</td>
+              <td>{key.moeda}</td>
+              <td>{key.valor}</td>
+              <td>{key.moedaTroca}</td>
+              <td>{key.valorConvertido}</td>
+            </tr>
+          ))
+        }
       </tbody>
     </Table>
   </Content>
@@ -36,5 +37,5 @@ const Transacoes = () => (
 export default Transacoes;
 
 Transacoes.propTypes = {
-
+  transactions: array
 };

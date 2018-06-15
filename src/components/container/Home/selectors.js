@@ -22,10 +22,16 @@ const makeSelectCurrencyList = () => createSelector(
   (homeState) => homeState.currencyList || []
 );
 
+const makeSelectTransactions = () => createSelector(
+  selectHome,
+  (homeState) => homeState.transactions || []
+);
+
 export {
   selectHome,
   makeSelectConvertedValue,
   makeSelectConvertBrlInformations,
   makeSelectBalance,
-  makeSelectCurrencyList
+  makeSelectCurrencyList,
+  makeSelectTransactions
 };
