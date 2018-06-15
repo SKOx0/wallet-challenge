@@ -1,6 +1,7 @@
 import React from 'react';
 import { Content, Table } from 'bloomer';
 
+// TODO paginação
 const Transacoes = () => (
   <Content>
     <Table >
@@ -8,6 +9,10 @@ const Transacoes = () => (
         <tr>
           <th>Data</th>
           <th>Tipo transação</th>
+          <th>Meoda</th>
+          <th>Valor</th>
+          <th>Moeda de troca</th>
+          <th>Valor convertido</th>
         </tr>
       </thead>
       <tbody>

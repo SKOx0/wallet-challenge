@@ -1,14 +1,15 @@
 import React from 'react';
-import { NavLink, withRouter, Redirect, Switch } from 'react-router-dom';
+import { NavLink, Redirect, Switch } from 'react-router-dom';
 import PrivateRoute from 'components/common/PrivateRoute';
 import { Content, Tabs, TabList, Tab } from 'bloomer';
-import { object, string } from 'prop-types';
+import { object, string, func, array } from 'prop-types';
 import styled from 'react-emotion';
+
 import Venda from './Venda';
 import Comprar from './Comprar';
 import Troca from './Troca';
 import Transacoes from './Transacoes';
-// import { listAvailibleCurrencies } from '../../actions';
+import { listAvailibleCurrencies } from '../../actions';
 
 const Amount = styled('div')`
   display: flex;
@@ -17,14 +18,24 @@ const Amount = styled('div')`
 `;
 
 class Cryptocurrency extends React.PureComponent {
-  // componentDidMount() {
-  //   const { dispatch, moeda } = this.props;
+  componentDidMount() {
+    const { dispatch, name } = this.props;
 
-  //   dispatch(listAvailibleCurrencies(moeda));
-  // }
+    dispatch(listAvailibleCurrencies(name));
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.name !== this.props.name) {
+      const { dispatch, name } = this.props;
+
+      dispatch(listAvailibleCurrencies(name));
+    }
+  }
 
   render() {
-    const { match, name, balance } = this.props;
+    const {
+      match, name, balance, currencyList
+    } = this.props;
     return (
       <Content>
         <Tabs>
@@ -56,7 +67,7 @@ class Cryptocurrency extends React.PureComponent {
         <Switch>
           <PrivateRoute path={`${match.path}/`} exact render={() => <Comprar moeda={name} />} />
           <PrivateRoute path={`${match.path}/vender`} exact render={() => <Venda moeda={name} />} />
-          <PrivateRoute path={`${match.path}/trocar`} render={() => <Troca moeda={name} />} />
+          <PrivateRoute path={`${match.path}/trocar`} render={() => <Troca moeda={name} currencyList={currencyList} />} />
           <PrivateRoute path={`${match.path}/transacoes`} render={() => <Transacoes moeda={name} />} />
           <Redirect to={`${match.url}`} />
         </Switch>
@@ -66,10 +77,12 @@ class Cryptocurrency extends React.PureComponent {
 }
 
 
-export default withRouter(Cryptocurrency);
+export default Cryptocurrency;
 
 Cryptocurrency.propTypes = {
   match: object.isRequired,
   name: string.isRequired,
-  balance: object
+  balance: object,
+  dispatch: func,
+  currencyList: array
 };

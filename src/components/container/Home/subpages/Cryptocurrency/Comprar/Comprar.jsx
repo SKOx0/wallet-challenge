@@ -5,7 +5,7 @@ import InputValidation from 'components/common/InputValidation';
 import CurrencyInputValidation from 'components/common/InputValidation/Currency';
 import Form from 'components/common/Form';
 import { func, string, object, number } from 'prop-types';
-import { listAvailibleCurrencies, exchargeCryptocurrency } from '../../../actions';
+import { exchargeCryptocurrency } from '../../../actions';
 import { REAL } from '../../../constants';
 
 const formName = 'Comprar';
@@ -16,12 +16,6 @@ class Comprar extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.exchange = this.exchange.bind(this);
-  }
-
-  componentDidMount() {
-    const { dispatch, moeda } = this.props;
-
-    dispatch(listAvailibleCurrencies(moeda));
   }
 
   componentDidUpdate(prevProps) {
