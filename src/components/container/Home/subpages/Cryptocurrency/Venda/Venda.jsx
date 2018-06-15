@@ -1,91 +1,96 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
 import { Content, Field, Control, Label, Notification, Delete, Button } from 'bloomer';
-import InputValidation from 'components/common/InputValidation';
 import CurrencyInputValidation from 'components/common/InputValidation/Currency';
+import InputValidation from 'components/common/InputValidation';
 import Form from 'components/common/Form';
-import PropTypes from 'prop-types';
+import { func, string, number } from 'prop-types';
+import { exchargeCryptocurrency } from '../../../actions';
+import { REAL } from '../../../constants';
 
-const Venda = ({ moeda }) => (
-  <Content>
-    <Notification>
-      <Delete />
-      Atenção! Toda operação tem uma comissão de 1% do valor da venda em reais
-    </Notification>
-    <Form width="100%" padding="30px">
-      <Field>
-        <Label>Quantidade de {moeda}</Label>
-        <Control>
-          <CurrencyInputValidation
-            name="valor"
-            type="text"
-            label="0"
-            currency="USD"
-          />
-        </Control>
-      </Field>
+const formName = 'Venda';
 
-      <Field>
-        <Label>Valor convertido em reais</Label>
-        <Control>
-          <CurrencyInputValidation
-            name="valorreais"
-            type="text"
-            label="0"
-            readOnly
-            currency="BRL"
-            currencyConfig={{
-              locale: 'pt-BR',
-              formats: {
-                number: {
-                  BRL: {
-                    style: 'currency',
-                    currency: 'BRL',
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  },
-                },
-              }
-            }}
-          />
-        </Control>
-      </Field>
+class Venda extends React.Component {
+  constructor(props) {
+    super(props);
 
-      <Field>
-        <Label>Valor final</Label>
-        <Control>
-          <CurrencyInputValidation
-            name="valorfinal"
-            type="text"
-            label="0"
-            readOnly
-            currency="BRL"
-            currencyConfig={{
-              locale: 'pt-BR',
-              formats: {
-                number: {
-                  BRL: {
-                    style: 'currency',
-                    currency: 'BRL',
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  },
-                },
-              }
-            }}
-          />
-        </Control>
-      </Field>
+    this.state = {
+      hideComission: false
+    };
 
-      <Button isFullWidth className="is-stone">Vender</Button>
-    </Form>
-  </Content>
-);
+    this.handleCryptocurrencyChange = this.handleCryptocurrencyChange.bind(this);
+    this.exchange = this.exchange.bind(this);
+  }
+
+  handleCryptocurrencyChange(event, value) {
+    event.preventDefault();
+
+    const { convertCryptocurrencyToBrl, moeda } = this.props;
+
+    convertCryptocurrencyToBrl({ valor: value, moeda, form: { name: formName, targetField: 'valorreais' } });
+  }
+
+  exchange(event) {
+    event.preventDefault();
+
+    const {
+      dispatch, brlValue, cryptoCurrencyValue, moeda
+    } = this.props;
+
+    dispatch(exchargeCryptocurrency({
+      exchangeCurrencyValue: cryptoCurrencyValue, cryptoCurrencyValue: brlValue, moeda: REAL, moedaTroca: moeda
+    }));
+  }
+
+  render() {
+    const { moeda } = this.props;
+    return (
+      <Content>
+        <Notification isHidden={this.state.hideComission}>
+          <Delete onClick={() => this.setState({ hideComission: true })} />
+          Atenção! Toda operação tem uma comissão de 1% do valor da venda em reais
+        </Notification>
+        <Form width="100%" padding="30px">
+          <Field>
+            <Label>Quantidade de {moeda}</Label>
+            <Control>
+              <CurrencyInputValidation
+                name="valor"
+                type="text"
+                label="0"
+                onChangeCurrency={this.handleCryptocurrencyChange}
+                currency="USD"
+              />
+            </Control>
+          </Field>
+
+          <Field>
+            <Label>Valor convertido em reais</Label>
+            <Control>
+              <InputValidation
+                name="valorreais"
+                type="text"
+                label="0"
+                readOnly
+              />
+            </Control>
+          </Field>
+
+          <Button onClick={this.exchange} isFullWidth className="is-stone">Vender</Button>
+        </Form>
+      </Content>
+    );
+  }
+}
 
 export default reduxForm({
-  form: 'Venda'
+  form: formName
 })(Venda);
 
 Venda.propTypes = {
-  moeda: PropTypes.string.isRequired
+  moeda: string.isRequired,
+  convertCryptocurrencyToBrl: func,
+  brlValue: number,
+  cryptoCurrencyValue: number,
+  dispatch: func
 };

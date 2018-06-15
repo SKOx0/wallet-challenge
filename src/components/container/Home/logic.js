@@ -5,13 +5,40 @@ import { actions } from 'react-redux-toastr';
 import { getBasicToast } from 'helpers/toast';
 import { obterValorMoeda, getUser } from 'helpers/query';
 import { normalizeValue } from 'helpers/currency';
-import { CONVERT_CURRENCY_VALUE, LIST_AVAILIBLE_CURRENCIES, EXCHANGE_CRYPTOCURRECY, GET_BALANCE } from './constants';
+import { CONVERT_BRL_CURRENCY, CONVERT_CRYPTOCURRENCY_TO_BRL, CONVERT_CRYPTOCURRENCY_TO_CRYPTOCURRENCY, LIST_AVAILIBLE_CURRENCIES, EXCHANGE_CRYPTOCURRECY, GET_BALANCE } from './constants';
 import { availibleCurrencies, getBalance, currentBalance } from './actions';
 
 const genericErrorMessage = 'Falha ao converter valores';
 
+const convertCryptocurrencyToBrlLogic = createLogic({
+  type: CONVERT_CRYPTOCURRENCY_TO_BRL,
+  debounce: 600,
+  latest: true,
+  async process({ action }, dispatch, done) {
+    try {
+      const { moeda, valor, form } = action.payload;
+      const response = await obterValorMoeda(moeda);
+
+      const { sell } = response.data[moeda];
+
+      if (!sell) {
+        dispatch(actions.add(getBasicToast('error', genericErrorMessage)));
+      }
+
+      const convertedValue = round(valor * sell, 2) || 0;
+
+      dispatch(change(form.name, form.targetField, convertedValue));
+
+      done();
+    } catch (error) {
+      dispatch(actions.add(getBasicToast('error', genericErrorMessage)));
+      done();
+    }
+  }
+});
+
 const convertCurrencyLogic = createLogic({
-  type: CONVERT_CURRENCY_VALUE,
+  type: CONVERT_BRL_CURRENCY,
   debounce: 600,
   latest: true,
   async process({ action }, dispatch, done) {
@@ -25,7 +52,34 @@ const convertCurrencyLogic = createLogic({
         dispatch(actions.add(getBasicToast('error', genericErrorMessage)));
       }
 
-      const convertedValue = round(valor / buy, 5) || 0;
+      const convertedValue = round(valor / buy, 2) || 0;
+
+      dispatch(change(form.name, form.targetField, convertedValue));
+
+      done();
+    } catch (error) {
+      dispatch(actions.add(getBasicToast('error', genericErrorMessage)));
+      done();
+    }
+  }
+});
+
+const convertCryptocurrencyToCryptocurrencyLogic = createLogic({
+  type: CONVERT_CRYPTOCURRENCY_TO_CRYPTOCURRENCY,
+  debounce: 600,
+  latest: true,
+  async process({ action }, dispatch, done) {
+    try {
+      const { moeda, valor, form } = action.payload;
+      const response = await obterValorMoeda(moeda);
+
+      const { buy } = response.data[moeda];
+
+      if (!buy) {
+        dispatch(actions.add(getBasicToast('error', genericErrorMessage)));
+      }
+
+      const convertedValue = round(valor / buy, 2) || 0;
 
       dispatch(change(form.name, form.targetField, convertedValue));
 
@@ -42,7 +96,7 @@ const listAvailicleCurrenciesLogic = createLogic({
   latest: true,
   async process({ action }, dispatch, done) {
     try {
-      let allCurrenciesMock = ['bitcoin', 'brita', 'real'];
+      let allCurrenciesMock = ['bitcoin', 'brita'];
 
       allCurrenciesMock = allCurrenciesMock.filter((value) => value !== action.payload);
 
@@ -122,4 +176,4 @@ const getBalanceLogic = createLogic({
 });
 
 
-export default [convertCurrencyLogic, listAvailicleCurrenciesLogic, exchargeCryptocurrencyLogic, getBalanceLogic];
+export default [convertCurrencyLogic, convertCryptocurrencyToBrlLogic, convertCryptocurrencyToCryptocurrencyLogic, listAvailicleCurrenciesLogic, exchargeCryptocurrencyLogic, getBalanceLogic];

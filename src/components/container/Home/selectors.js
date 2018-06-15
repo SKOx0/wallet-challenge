@@ -7,9 +7,9 @@ const makeSelectConvertedValue = () => createSelector(
   (homeState) => homeState.convertedValue
 );
 
-const makeSelectConvertInformations = () => createSelector(
+const makeSelectConvertBrlInformations = () => createSelector(
   selectHome,
-  (homeState) => homeState.convertInformations
+  (homeState) => homeState.convertBrlInformations
 );
 
 const makeSelectBalance = () => createSelector(
@@ -17,9 +17,15 @@ const makeSelectBalance = () => createSelector(
   (homeState) => homeState.balance
 );
 
+const makeSelectCurrencyList = () => createSelector(
+  selectHome,
+  (homeState) => homeState.currencyList || []
+);
+
 export {
   selectHome,
   makeSelectConvertedValue,
-  makeSelectConvertInformations,
-  makeSelectBalance
+  makeSelectConvertBrlInformations,
+  makeSelectBalance,
+  makeSelectCurrencyList
 };

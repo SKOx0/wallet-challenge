@@ -5,52 +5,52 @@ import { authenticate, authenticateSuccess, newAccount, newAccountSuccess } from
 describe('Auth actions', () => {
   describe('Actions de autenticação', () => {
     it('Deve retornar as informações do usuário', () => {
-      const user = {
+      const payload = {
         email: 'pp@g.com',
         senha: '123'
       };
       const expected = {
         type: AUTHENTICATE,
-        user
+        payload
       };
 
-      expect(authenticate(user)).toEqual(expected);
+      expect(authenticate(payload)).toEqual(expected);
     });
 
     it('Deve retornar o estado atual da autenticação', () => {
-      const isAuthenticated = true;
+      const payload = true;
 
       const expected = {
         type: AUTHENTICATE_SUCCESS,
-        isAuthenticated
+        payload
       };
-      expect(authenticateSuccess(isAuthenticated)).toEqual(expected);
+      expect(authenticateSuccess(payload)).toEqual(expected);
     });
   });
 
   describe('Actions de cadastro de usuário', () => {
     it('Deve retornar as informações de cadastro', () => {
-      const account = {
+      const payload = {
         email: 'email@teste.com',
         senha: '123',
         confirmacaosenha: '123'
       };
       const expected = {
         type: NEW_ACCOUNT,
-        account
+        payload
       };
 
-      expect(newAccount(account)).toEqual(expected);
+      expect(newAccount(payload)).toEqual(expected);
     });
 
     it('Deve retornar o estado atual do cadastro', () => {
-      const accountCreated = true;
+      const payload = true;
 
       const expected = {
         type: NEW_ACCOUNT_SUCCESS,
-        accountCreated
+        payload
       };
-      expect(newAccountSuccess(accountCreated)).toEqual(expected);
+      expect(newAccountSuccess(payload)).toEqual(expected);
     });
   });
 });

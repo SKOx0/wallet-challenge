@@ -6,6 +6,7 @@ import CurrencyInputValidation from 'components/common/InputValidation/Currency'
 import Form from 'components/common/Form';
 import { func, string, object, number } from 'prop-types';
 import { listAvailibleCurrencies, exchargeCryptocurrency } from '../../../actions';
+import { REAL } from '../../../constants';
 
 const formName = 'Comprar';
 
@@ -24,21 +25,21 @@ class Comprar extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { moeda, convertCurrencyValue, convertInformations } = this.props;
+    const { moeda, convertBrlToCryptocurrency, convertBrlInformations } = this.props;
 
     if (prevProps.moeda !== this.props.moeda) {
       this.props.reset();
 
-      if (convertInformations) { convertCurrencyValue({ valor: convertInformations.valor, moeda, form: { name: formName, targetField: 'quantidademoeda' } }); }
+      if (convertBrlInformations) { convertBrlToCryptocurrency({ valor: convertBrlInformations.valor, moeda, form: { name: formName, targetField: 'quantidademoeda' } }); }
     }
   }
 
   handleChange(event, value) {
     event.preventDefault();
 
-    const { convertCurrencyValue, moeda } = this.props;
+    const { convertBrlToCryptocurrency, moeda } = this.props;
 
-    convertCurrencyValue({ valor: value, moeda, form: { name: formName, targetField: 'quantidademoeda' } });
+    convertBrlToCryptocurrency({ valor: value, moeda, form: { name: formName, targetField: 'quantidademoeda' } });
   }
 
   exchange(event) {
@@ -49,10 +50,8 @@ class Comprar extends React.Component {
     } = this.props;
 
     dispatch(exchargeCryptocurrency({
-      exchangeCurrencyValue: brlValue, cryptoCurrencyValue, moeda, moedaTroca: 'real'
+      exchangeCurrencyValue: brlValue, cryptoCurrencyValue, moeda, moedaTroca: REAL
     }));
-
-    this.render();
   }
 
   render() {
@@ -105,10 +104,10 @@ export default reduxForm({
 
 Comprar.propTypes = {
   moeda: string.isRequired,
-  convertCurrencyValue: func,
+  convertBrlToCryptocurrency: func,
   dispatch: func,
   reset: func,
-  convertInformations: object,
+  convertBrlInformations: object,
   brlValue: string,
   cryptoCurrencyValue: number
 };

@@ -1,5 +1,13 @@
 import { handleActions } from 'redux-actions';
-import { exchargeCryptocurrency, listAvailibleCurrencies, availibleCurrencies, convertCurrencyValue, currentBalance } from './actions';
+import {
+  exchargeCryptocurrency,
+  listAvailibleCurrencies,
+  availibleCurrencies,
+  convertBrlToCryptocurrency,
+  convertCryptocurrencyToCryptocurrency,
+  convertCryptocurrencyToBrl,
+  currentBalance
+} from './actions';
 
 const defaultState = {
   balance: {
@@ -28,9 +36,17 @@ const homeReducer = handleActions({
     ...state,
     currencyList: action.payload
   }),
-  [convertCurrencyValue]: (state, action) => ({
+  [convertBrlToCryptocurrency]: (state, action) => ({
     ...state,
-    convertInformations: action.payload
+    convertBrlInformations: action.payload
+  }),
+  [convertCryptocurrencyToBrl]: (state, action) => ({
+    ...state,
+    convertCryptocurrencyInformations: action.payload
+  }),
+  [convertCryptocurrencyToCryptocurrency]: (state, action) => ({
+    ...state,
+    convertCTCInformations: action.payload
   }),
   [currentBalance]: (state, action) => ({
     ...state,
