@@ -12,3 +12,35 @@ Desafio Web App carteira virtual
 **Linux** | [![CircleCI](https://circleci.com/gh/SKOx0/wallet-challenge/tree/master.svg?style=svg)](https://circleci.com/gh/SKOx0/wallet-challenge/tree/master)
 **OS X** | [![Build Status](https://travis-ci.org/SKOx0/wallet-challenge.svg?branch=master)](https://travis-ci.org/SKOx0/wallet-challenge)
 
+
+## Pré-requisitos
+
+* Node.js >= v8.11.2
+* Yarn
+* Git
+
+## Instalação
+
+Windows & OS X & Linux:
+
+Clone o repositório:
+
+```sh
+  git clone https://github.com/SKOx0/wallet-challenge.git
+```
+
+Instale as dependências:
+
+```sh
+  yarn install
+```
+
+Pronto! basta executa o comando de desenvolvimento:
+```sh
+  yarn serve
+```
+
+ou se preferir, realize uma compilação utlizando o seguinte comando:
+```sh
+  yarn build
+```
