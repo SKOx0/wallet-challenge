@@ -2,7 +2,7 @@
 import gql from 'graphql-tag';
 import apollo from 'helpers/apollo';
 
-async function obterValorMoeda(moeda) {
+export async function obterValorMoeda(moeda) {
   return apollo.query({
     query: gql`
       query GetCoinPrice{
@@ -15,8 +15,14 @@ async function obterValorMoeda(moeda) {
   });
 }
 
-function getUser(userEmail, predict) {
-  const users = JSON.parse(localStorage.getItem('users'));
+export function getAllUsers() {
+  return JSON.parse(localStorage.getItem('users'));
+}
+
+export function getUser(userEmail, predict) {
+  predict = predict || function emailFilter(user) { return user.email === userEmail; };
+
+  const users = getAllUsers();
 
   if (!users) return null;
 
@@ -25,7 +31,26 @@ function getUser(userEmail, predict) {
   return user;
 }
 
-async function getUserInformations(email) {
+
+export function addTransaction(userEmail, informations) {
+  const users = getAllUsers();
+
+  const user = getUser(userEmail);
+
+  user.transactions = [...user.transactions, { ...informations }];
+
+  const keepUsers = users.filter((value) => value.email !== userEmail);
+
+  localStorage.setItem('users', JSON.stringify([...keepUsers, user]));
+}
+
+export function getAllTransactions(userEmail) {
+  const user = getUser(userEmail);
+
+  return user.transactions;
+}
+
+export async function getUserInformations(email) {
   return apollo.query({
     query: gql`
       query GetUserInformations{
@@ -48,5 +73,3 @@ async function getUserInformations(email) {
     `,
   });
 }
-
-export { getUserInformations, getUser, obterValorMoeda };

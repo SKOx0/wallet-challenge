@@ -35,7 +35,7 @@ class Troca extends React.Component {
     } = this.props;
 
     dispatch(exchargeCryptocurrency({
-      exchangeCurrencyValue: cryptoCurrencyValue, cryptoCurrencyValue: brlValue, moeda: REAL, moedaTroca: moeda
+      exchangeCurrencyValue: cryptoCurrencyValue, cryptoCurrencyValue: brlValue, moeda: REAL, moedaTroca: moeda, tipoTransacao: 'troca'
     }));
   }
 

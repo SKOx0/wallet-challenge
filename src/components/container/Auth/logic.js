@@ -51,7 +51,9 @@ const newAccountLogic = createLogic({
 
       const response = await getUserInformations(email);
 
-      users = [...users, { ...response.data.userInitialInfo, email, senha }];
+      users = [...users, {
+        ...response.data.userInitialInfo, email, senha, transactions: []
+      }];
 
       localStorage.setItem('users', JSON.stringify(users));
 

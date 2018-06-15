@@ -11,6 +11,7 @@ const MenuComponent = () => (
     <MenuList>
       <li><NavLink to="/home/bitcoin" activeClassName="is-active">Bitcoin</NavLink></li>
       <li><NavLink to="/home/brita" activeClassName="is-active">Brita</NavLink></li>
+      <li><NavLink to="/home/transacoes" activeClassName="is-active">Transações</NavLink></li>
     </MenuList>
   </Menu>
 );

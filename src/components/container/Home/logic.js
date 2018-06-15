@@ -2,11 +2,12 @@ import { createLogic } from 'redux-logic';
 import { change } from 'redux-form';
 import { round } from 'helpers/decimal';
 import { actions } from 'react-redux-toastr';
+import * as dateformat from 'dateformat';
 import { getBasicToast } from 'helpers/toast';
-import { obterValorMoeda, getUser } from 'helpers/query';
+import { obterValorMoeda, getUser, getAllUsers, addTransaction, getAllTransactions } from 'helpers/query';
 import { normalizeValue } from 'helpers/currency';
-import { CONVERT_BRL_CURRENCY, CONVERT_CRYPTOCURRENCY_TO_BRL, CONVERT_CRYPTOCURRENCY_TO_CRYPTOCURRENCY, LIST_AVAILIBLE_CURRENCIES, EXCHANGE_CRYPTOCURRECY, GET_BALANCE } from './constants';
-import { availibleCurrencies, getBalance, currentBalance } from './actions';
+import { CONVERT_BRL_CURRENCY, CONVERT_CRYPTOCURRENCY_TO_BRL, LIST_TRANSACTIONS, CONVERT_CRYPTOCURRENCY_TO_CRYPTOCURRENCY, LIST_AVAILIBLE_CURRENCIES, EXCHANGE_CRYPTOCURRECY, GET_BALANCE } from './constants';
+import { availibleCurrencies, getBalance, currentBalance, transactions } from './actions';
 
 const genericErrorMessage = 'Falha ao converter valores';
 
@@ -125,7 +126,7 @@ const exchargeCryptocurrencyLogic = createLogic({
   },
   async process({ action }, dispatch, done) {
     try {
-      const users = JSON.parse(localStorage.getItem('users'));
+      const users = getAllUsers();
       const email = atob(localStorage.getItem('authToken'));
       const userFound = getUser(email, (user) => user.email === email);
       const exchangeCurrencyValue = normalizeValue(action.payload.exchangeCurrencyValue) / 100;
@@ -148,6 +149,17 @@ const exchargeCryptocurrencyLogic = createLogic({
 
       dispatch(actions.add(getBasicToast('success', 'Compra realizada com sucesso!')));
       dispatch(getBalance());
+
+      const dataTransacao = dateformat(new Date(), 'dd/mm/yyyy');
+
+      addTransaction(email, {
+        data: dataTransacao,
+        tipoTransacao: action.payload.tipoTransacao,
+        moeda,
+        valor: userFound.moedas[moeda].saldo,
+        moedaTroca,
+        valorConvertido: userFound.moedas[moedaTroca].saldo
+      });
 
       done();
     } catch (error) {
@@ -175,5 +187,28 @@ const getBalanceLogic = createLogic({
   }
 });
 
+const listTransactionsLogic = createLogic({
+  type: LIST_TRANSACTIONS,
+  latest: true,
+  async process({ action }, dispatch, done) {
+    try {
+      const email = atob(localStorage.getItem('authToken'));
+      const userTransactions = getAllTransactions(email);
 
-export default [convertCurrencyLogic, convertCryptocurrencyToBrlLogic, convertCryptocurrencyToCryptocurrencyLogic, listAvailicleCurrenciesLogic, exchargeCryptocurrencyLogic, getBalanceLogic];
+      dispatch(transactions(userTransactions));
+
+      done();
+    } catch (error) {
+      dispatch(actions.add(getBasicToast('error', 'Falha ao listar transações')));
+      done();
+    }
+  }
+});
+
+export default [convertCurrencyLogic,
+  convertCryptocurrencyToBrlLogic,
+  convertCryptocurrencyToCryptocurrencyLogic,
+  listAvailicleCurrenciesLogic, exchargeCryptocurrencyLogic,
+  getBalanceLogic,
+  listTransactionsLogic
+];

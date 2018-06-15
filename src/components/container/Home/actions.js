@@ -6,7 +6,9 @@ import {
   EXCHANGE_CRYPTOCURRECY,
   GET_BALANCE, CURRENT_BALANCE,
   CONVERT_CRYPTOCURRENCY_TO_BRL,
-  CONVERT_CRYPTOCURRENCY_TO_CRYPTOCURRENCY
+  CONVERT_CRYPTOCURRENCY_TO_CRYPTOCURRENCY,
+  TRANSACTIONS,
+  LIST_TRANSACTIONS
 } from './constants';
 
 export const convertBrlToCryptocurrency = createAction(CONVERT_BRL_CURRENCY);
@@ -18,6 +20,10 @@ export const convertCryptocurrencyToCryptocurrency = createAction(CONVERT_CRYPTO
 export const listAvailibleCurrencies = createAction(LIST_AVAILIBLE_CURRENCIES);
 
 export const availibleCurrencies = createAction(AVAILIBLE_CURRENCIES);
+
+export const transactions = createAction(TRANSACTIONS);
+
+export const listTransactions = createAction(LIST_TRANSACTIONS);
 
 export const exchargeCryptocurrency = createAction(EXCHANGE_CRYPTOCURRECY);
 
