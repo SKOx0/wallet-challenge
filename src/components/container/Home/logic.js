@@ -136,7 +136,7 @@ const exchargeCryptocurrencyLogic = createLogic({
 
       if (saldo >= exchangeCurrencyValue) {
         userFound.moedas[moedaTroca] = { ...{ saldo: saldo - exchangeCurrencyValue } };
-        userFound.moedas[moeda] = { ...{ saldo: round(saldoMoeda + cryptoCurrencyValue, 5) } };
+        userFound.moedas[moeda] = { ...{ saldo: round(saldoMoeda + cryptoCurrencyValue, 2) } };
       } else {
         dispatch(actions.add(getBasicToast('warning', 'Saldo insuficiênte!')));
         done();
