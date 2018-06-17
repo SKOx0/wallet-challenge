@@ -24,6 +24,7 @@ const convertCryptocurrencyToBrlLogic = createLogic({
 
       if (!sell) {
         dispatch(actions.add(getBasicToast('error', genericErrorMessage)));
+        return;
       }
 
       const convertedValue = round(valor * sell, 2) || 0;
@@ -51,6 +52,7 @@ const convertCurrencyLogic = createLogic({
 
       if (!buy) {
         dispatch(actions.add(getBasicToast('error', genericErrorMessage)));
+        return;
       }
 
       const convertedValue = round(valor / buy, 2) || 0;
@@ -78,6 +80,7 @@ const convertCryptocurrencyToCryptocurrencyLogic = createLogic({
 
       if (!buy) {
         dispatch(actions.add(getBasicToast('error', genericErrorMessage)));
+        return;
       }
 
       const convertedValue = round(valor / buy, 2) || 0;
@@ -141,6 +144,7 @@ const exchargeCryptocurrencyLogic = createLogic({
       } else {
         dispatch(actions.add(getBasicToast('warning', 'Saldo insuficiênte!')));
         done();
+        return;
       }
 
       const keepUsers = users.filter((value) => value.email !== email);
@@ -191,7 +195,7 @@ const getBalanceLogic = createLogic({
 const listTransactionsLogic = createLogic({
   type: LIST_TRANSACTIONS,
   latest: true,
-  async process({ action }, dispatch, done) {
+  async process(obj, dispatch, done) {
     try {
       const email = atob(localStorage.getItem('authToken'));
       const userTransactions = getAllTransactions(email);

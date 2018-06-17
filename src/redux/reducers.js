@@ -4,12 +4,8 @@ import authReducer from 'components/container/Auth/reducer';
 import { reducer as formReducer } from 'redux-form';
 import { reducer as toastrReducer } from 'react-redux-toastr';
 
-import routeReducer from './location';
-
-
 // Modulo responsável por combinar todos os reducers
 export default combineReducers({
-  route: routeReducer,
   home: homeReducer,
   auth: authReducer,
   form: formReducer,

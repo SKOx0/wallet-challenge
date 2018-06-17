@@ -1,10 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Navbar, Container, NavbarBrand, NavbarItem, NavbarMenu, NavbarEnd } from 'bloomer';
+import { Navbar, Container, NavbarBrand, NavbarItem, NavbarMenu, NavbarEnd, Button } from 'bloomer';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import * as Icons from '@fortawesome/fontawesome-free-solid';
+import { func } from 'prop-types';
 
-const Header = () => (
+const Header = (props) => (
   <Navbar className="has-shadow is-spaced">
     <Container>
       <NavbarBrand>
@@ -19,9 +20,11 @@ const Header = () => (
 
       <NavbarMenu>
         <NavbarEnd>
-          <NavbarItem href="#" isHidden="touch">
-            <FontAwesomeIcon icon={Icons.faSignOutAlt} className="mr-5"></FontAwesomeIcon>
-            <span>Sair</span>
+          <NavbarItem isHidden="touch" onClick={props.onLogout}>
+            <Button>
+              <FontAwesomeIcon icon={Icons.faSignOutAlt} className="mr-5"></FontAwesomeIcon>
+              <span>Sair</span>
+            </Button>
           </NavbarItem>
         </NavbarEnd>
       </NavbarMenu>
@@ -30,3 +33,7 @@ const Header = () => (
 );
 
 export default Header;
+
+Header.propTypes = {
+  onLogout: func
+};

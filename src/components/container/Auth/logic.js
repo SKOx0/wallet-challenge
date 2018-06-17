@@ -1,8 +1,9 @@
 import { createLogic } from 'redux-logic';
+import { push } from 'connected-react-router';
 import { actions } from 'react-redux-toastr';
 import { getBasicToast } from 'helpers/toast';
 import { getUser, getUserInformations } from 'helpers/query';
-import { AUTHENTICATE, CANCEL_AUTHENTICATE, NEW_ACCOUNT, CANCEL_NEW_ACCOUNT } from './constants';
+import { AUTHENTICATE, CANCEL_AUTHENTICATE, NEW_ACCOUNT, CANCEL_NEW_ACCOUNT, LOGOUT } from './constants';
 import { newAccountSuccess, authenticateSuccess } from './actions';
 
 const authLogic = createLogic({
@@ -18,6 +19,7 @@ const authLogic = createLogic({
       if (!userFound) {
         dispatch(actions.add(getBasicToast('error', 'Carteira não encontrada!')));
         done();
+        return;
       }
 
       localStorage.setItem('authToken', btoa(`${userFound.email}`));
@@ -29,6 +31,16 @@ const authLogic = createLogic({
       dispatch(actions.add(getBasicToast('error', ex.message)));
       done();
     }
+  }
+});
+
+const logoutLogic = createLogic({
+  type: LOGOUT,
+  latest: true,
+  process(obj, dispatch, done) {
+    localStorage.removeItem('authToken');
+    dispatch(push('/auth'));
+    done();
   }
 });
 
@@ -47,6 +59,7 @@ const newAccountLogic = createLogic({
       if (userFound) {
         dispatch(actions.add(getBasicToast('error', 'Usuário já cadastrado!')));
         done();
+        return;
       }
 
       const response = await getUserInformations(email);
@@ -69,4 +82,4 @@ const newAccountLogic = createLogic({
   }
 });
 
-export default [authLogic, newAccountLogic];
+export default [authLogic, newAccountLogic, logoutLogic];

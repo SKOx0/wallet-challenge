@@ -3,8 +3,8 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'react-router-redux';
-import createHistory from 'history/createBrowserHistory';
+import { ConnectedRouter } from 'connected-react-router';
+import { history } from 'helpers/history';
 import ReduxToastr from 'react-redux-toastr';
 import './styles/global.scss';
 
@@ -13,7 +13,6 @@ import configureStore from './redux/store.config';
 
 // Main entry, todos os modulos, plugins ou frameworks de terceiro devem ser importados aqui.
 const root = document.getElementById('root');
-const history = createHistory();
 
 const store = configureStore({}, history);
 
@@ -26,7 +25,6 @@ const render = () => {
         </ConnectedRouter>
         <ReduxToastr />
       </div>
-
     </Provider>,
     root
   );

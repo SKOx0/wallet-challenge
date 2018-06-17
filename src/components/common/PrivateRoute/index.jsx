@@ -1,29 +1,37 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const PrivateRoute = ({ component: Component, render, ...rest }) => {
-  const token = localStorage.getItem('authToken');
-
-  if (render && token) {
-    return (<Route {...rest} render={render} />);
+class PrivateRoute extends React.PureComponent {
+  componentWillMount() {
+    this.user = localStorage.getItem('authToken');
   }
 
-  return (<Route
-    {...rest}
-    render={(props) => {
-      if (token && props.location.pathname === '/auth') {
-        return <Redirect to={{ pathname: '/home' }} />;
-      } else if (!token && props.location.pathname !== '/auth') {
-        return (
-          <Redirect to={{ pathname: '/auth', state: { from: props.location } }} />
-        );
-      }
+  user = null;
 
-      return <Component {...props} />;
-    }}
-  />);
-};
+  render() {
+    const {
+      component: Component, render, ...rest
+    } = this.props;
+
+    if (render && this.user) {
+      return (<Route {...rest} render={render} />);
+    }
+
+    if (!this.user && rest.location.pathname !== '/auth') {
+      return (<Redirect to="/auth" />);
+    }
+
+    return (
+      <Route
+        {...rest}
+        render={(props) => (this.user
+          ? <Component {...props} />
+          : <Redirect to="/auth" />)}
+      />
+    );
+  }
+}
 
 export default PrivateRoute;
 

@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware } from 'redux';
-import { routerMiddleware } from 'react-router-redux';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { createLogicMiddleware } from 'redux-logic';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
@@ -17,7 +17,7 @@ export default function configureStore(initialState = {}, history) {
   const composedEnhancer = composeWithDevTools(...storeEnhancers);
 
   const store = createStore(
-    reducers,
+    connectRouter(history)(reducers),
     initialState,
     composedEnhancer
   );
