@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Form /> deve ser igual ao snapshot, com altura, largura, bg e espaçamentos 1`] = `
+.emotion-0 {
+  height: 500px;
+  width: 100px#;
+  background-color: #ffffff;
+}
+
+<form
+  className="emotion-0"
+  height="500px"
+  width="100px#"
+/>
+`;

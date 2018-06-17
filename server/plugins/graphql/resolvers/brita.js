@@ -26,6 +26,7 @@ const requestBrita = async (dataInicial, dataFinal) => {
     cotacaoVenda
   } = result.data.value[0];
 
+
   model.buy = round(cotacaoCompra, 4);
   model.sell = round(cotacaoVenda, 4);
 

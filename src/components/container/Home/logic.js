@@ -160,10 +160,10 @@ const exchargeCryptocurrencyLogic = createLogic({
       addTransaction(email, {
         data: dataTransacao,
         tipoTransacao: action.payload.tipoTransacao,
-        moeda,
-        valor: cryptoCurrencyValue,
-        moedaTroca,
-        valorConvertido: exchangeCurrencyValue
+        moeda: moedaTroca,
+        valor: exchangeCurrencyValue,
+        moedaTroca: moeda,
+        valorConvertido: cryptoCurrencyValue
       });
 
       done();

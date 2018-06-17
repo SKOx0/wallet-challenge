@@ -39,7 +39,7 @@ const logoutLogic = createLogic({
   latest: true,
   process(obj, dispatch, done) {
     localStorage.removeItem('authToken');
-    dispatch(push('/auth'));
+    dispatch(push('#/auth'));
     done();
   }
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Auth from '../Auth';
+import Auth from '../index';
 
 describe('<Auth />', () => {
   it('Deve renderizar o container Auth', () => {
