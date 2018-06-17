@@ -11,6 +11,14 @@ module.exports = {
     'src/**/*.{js,jsx}',
     '!src/**/*.test.{js,jsx}'
   ],
+  coverageThreshold: {
+    global: {
+      statements: 98,
+      branches: 91,
+      functions: 98,
+      lines: 98
+    }
+  },
   moduleNameMapper: {
     '.*\\.(css|less|styl|scss|sass)$':
       '<rootDir>/config/jest/mock/cssModule.js',

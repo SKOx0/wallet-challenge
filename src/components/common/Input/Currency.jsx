@@ -10,6 +10,8 @@ const CurrencyComponent = (props) => (
     {...props}
   />);
 
+export { CurrencyComponent };
+
 export default Input.withComponent(CurrencyComponent);
 
 CurrencyComponent.propTypes = {

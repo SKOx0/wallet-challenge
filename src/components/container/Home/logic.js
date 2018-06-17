@@ -71,19 +71,33 @@ const convertCryptocurrencyToCryptocurrencyLogic = createLogic({
   type: CONVERT_CRYPTOCURRENCY_TO_CRYPTOCURRENCY,
   debounce: 600,
   latest: true,
+  validate({ action }, allow, reject) {
+    const { moedaTroca } = action.payload;
+
+    if (moedaTroca) {
+      allow(action);
+    } else {
+      reject(actions.add(getBasicToast('error', 'Selecione uma moeda de troca!')));
+    }
+  },
   async process({ action }, dispatch, done) {
     try {
-      const { moeda, valor, form } = action.payload;
+      const {
+        moeda, moedaTroca, valor, form
+      } = action.payload;
+
       const response = await obterValorMoeda(moeda);
+      const responseMoedaTroca = await obterValorMoeda(moedaTroca);
 
       const { buy } = response.data[moeda];
-
-      if (!buy) {
+      const buyMoedaTroca = responseMoedaTroca.data[moedaTroca].buy;
+      if (!buy || !buyMoedaTroca) {
         dispatch(actions.add(getBasicToast('error', genericErrorMessage)));
         return;
       }
 
-      const convertedValue = round(valor / buy, 2) || 0;
+      const convertedValueBrl = round(valor * buy, 2) || 0;
+      const convertedValue = round(convertedValueBrl / buyMoedaTroca, 2) || 0;
 
       dispatch(change(form.name, form.targetField, convertedValue));
 
@@ -139,7 +153,7 @@ const exchargeCryptocurrencyLogic = createLogic({
       const saldoMoeda = userFound.moedas[moeda].saldo;
 
       if (saldo >= exchangeCurrencyValue) {
-        userFound.moedas[moedaTroca] = { ...{ saldo: saldo - exchangeCurrencyValue } };
+        userFound.moedas[moedaTroca] = { ...{ saldo: round(saldo - exchangeCurrencyValue, 2) } };
         userFound.moedas[moeda] = { ...{ saldo: round(saldoMoeda + cryptoCurrencyValue, 2) } };
       } else {
         dispatch(actions.add(getBasicToast('warning', 'Saldo insuficiênte!')));
@@ -151,8 +165,7 @@ const exchargeCryptocurrencyLogic = createLogic({
 
       localStorage.setItem('users', JSON.stringify([...keepUsers, userFound]));
 
-      dispatch(actions.add(getBasicToast('success', 'Compra realizada com sucesso!')));
-      dispatch(listTransactions());
+      dispatch(actions.add(getBasicToast('success', 'Transação realizada com sucesso!')));
       dispatch(getBalance());
 
       const dataTransacao = dateformat(new Date(), 'dd/mm/yyyy');
@@ -165,6 +178,8 @@ const exchargeCryptocurrencyLogic = createLogic({
         moedaTroca: moeda,
         valorConvertido: cryptoCurrencyValue
       });
+
+      dispatch(listTransactions());
 
       done();
     } catch (error) {

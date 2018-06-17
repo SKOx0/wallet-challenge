@@ -5,9 +5,8 @@ import CurrencyInputValidation from 'components/common/InputValidation/Currency'
 import InputValidation from 'components/common/InputValidation';
 import SelectValidation from 'components/common/InputValidation/Select';
 import Form from 'components/common/Form';
-import { func, string, number, array } from 'prop-types';
+import { func, string, number, array, oneOf } from 'prop-types';
 import { exchargeCryptocurrency } from '../../../actions';
-import { REAL } from '../../../constants';
 
 const formName = 'Troca';
 
@@ -22,20 +21,22 @@ class Troca extends React.Component {
   handleCryptocurrencyChange(event, value) {
     event.preventDefault();
 
-    const { convertCryptocurrencyToCryptocurrency, moeda } = this.props;
+    const { convertCryptocurrencyToCryptocurrency, moeda, moedaTroca } = this.props;
 
-    convertCryptocurrencyToCryptocurrency({ valor: value, moeda, form: { name: formName, targetField: 'valormoedadestino' } });
+    convertCryptocurrencyToCryptocurrency({
+      valor: value, moeda, moedaTroca, form: { name: formName, targetField: 'valormoedatroca' }
+    });
   }
 
   exchange(event) {
     event.preventDefault();
 
     const {
-      dispatch, brlValue, cryptoCurrencyValue, moeda
+      dispatch, valorMoedaTroca, valor, moeda, moedaTroca
     } = this.props;
 
     dispatch(exchargeCryptocurrency({
-      exchangeCurrencyValue: cryptoCurrencyValue, cryptoCurrencyValue: brlValue, moeda: REAL, moedaTroca: moeda, tipoTransacao: 'troca'
+      exchangeCurrencyValue: valor, cryptoCurrencyValue: valorMoedaTroca, moeda: moedaTroca, moedaTroca: moeda, tipoTransacao: 'troca'
     }));
   }
 
@@ -44,6 +45,17 @@ class Troca extends React.Component {
     return (
       <Content>
         <Form width="100%" padding="30px">
+
+          <Field>
+            <Label>Moeda de Troca</Label>
+            <Control>
+              <SelectValidation name="moedatroca">
+                <option></option>
+                {currencyList.map((key) => (<option key={`${key}`}>{key}</option>))}
+              </SelectValidation>
+            </Control>
+          </Field>
+
           <Field>
             <Label>Quantidade de {moeda}</Label>
             <Control>
@@ -58,20 +70,10 @@ class Troca extends React.Component {
           </Field>
 
           <Field>
-            <Label>Moeda destino</Label>
-            <Control>
-              <SelectValidation name="moedadestino">
-                {currencyList.map((key) => (<option key={`${key}`}>{key}</option>))}
-              </SelectValidation>
-            </Control>
-          </Field>
-
-
-          <Field>
             <Label>Valor convertido</Label>
             <Control>
               <InputValidation
-                name="valormoedadestino"
+                name="valormoedatroca"
                 type="text"
                 label="0"
                 readOnly
@@ -93,8 +95,9 @@ export default reduxForm({
 Troca.propTypes = {
   moeda: string.isRequired,
   convertCryptocurrencyToCryptocurrency: func,
-  brlValue: number,
-  cryptoCurrencyValue: number,
+  valorMoedaTroca: oneOf([string, number]),
+  valor: oneOf([string, number]),
   dispatch: func,
-  currencyList: array
+  currencyList: array,
+  moedaTroca: string
 };

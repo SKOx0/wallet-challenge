@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Title /> deve ser igual ao snapshot 1`] = `
+.emotion-0 {
+  color: #ffffff;
+}
+
+<p
+  className="emotion-0"
+  color="#ffffff"
+/>
+`;

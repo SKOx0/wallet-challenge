@@ -22,5 +22,7 @@ exports[`<CurrencyInput /> deve ser igual ao snapshot, com configurações padr�
 
 <CurrencyComponent
   className="emotion-0"
+  config={Object {}}
+  currency="BRL"
 />
 `;

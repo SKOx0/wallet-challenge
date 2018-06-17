@@ -44,7 +44,7 @@
   },
   "scripts": {
     "test": "jest --coverage",
-    "test:watch": "jest --watch",
+    "test:watch": "jest --watchAll --colors",
     "test:clean": "rimraf ./coverage",
     "build": "cross-env NODE_ENV=production webpack --config config/webpack/prod.js -p --progress --hide-modules",
     "client": "cross-env NODE_ENV=development webpack-serve --config config/webpack/dev.js --hot --display-error-details",
