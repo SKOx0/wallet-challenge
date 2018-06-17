@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Menu /> deve ser igual ao snapshot 1`] = `
+<withHelpersModifiers(Menu)>
+  <withHelpersModifiers(MenuList)>
+    <li>
+      <NavLink
+        activeClassName="is-active"
+        aria-current="page"
+        exact={true}
+        to="/home"
+      >
+        Inicio
+      </NavLink>
+    </li>
+  </withHelpersModifiers(MenuList)>
+  <withHelpersModifiers(MenuLabel)>
+    Moedas
+  </withHelpersModifiers(MenuLabel)>
+  <withHelpersModifiers(MenuList)>
+    <li>
+      <NavLink
+        activeClassName="is-active"
+        aria-current="page"
+        to="/home/bitcoin"
+      >
+        Bitcoin
+      </NavLink>
+    </li>
+    <li>
+      <NavLink
+        activeClassName="is-active"
+        aria-current="page"
+        to="/home/brita"
+      >
+        Brita
+      </NavLink>
+    </li>
+    <li>
+      <NavLink
+        activeClassName="is-active"
+        aria-current="page"
+        to="/home/transacoes"
+      >
+        Transações
+      </NavLink>
+    </li>
+  </withHelpersModifiers(MenuList)>
+</withHelpersModifiers(Menu)>
+`;

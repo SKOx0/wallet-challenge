@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SelectValidation /> deve ser igual ao snapshot 1`] = `
+.emotion-0 {
+  height: 50px;
+  padding: 15px;
+  width: 100%;
+  border-radius: 3px;
+  border-width: 1px;
+  border-color: #D2D2D2;
+  font-size: 1.0rem;
+}
+
+.emotion-0:focus {
+  outline: none;
+}
+
+.emotion-0[readonly],
+.emotion-0 [disabled] {
+  opacity: 0.5;
+}
+
+<SelectValidation
+  className="emotion-0"
+/>
+`;
